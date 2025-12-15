@@ -1,0 +1,389 @@
+﻿@model SmartWarehouse.Models.Urun
+
+@{
+    ViewBag.Title = "Ürün Sil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Sayfa arka planı */
+    .delete-page-wrapper {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: calc(100vh - 100px);
+        padding: 40px 0;
+    }
+
+    /* Uyarı kartı */
+    .delete-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+        animation: slideDown 0.5s ease;
+    }
+
+    @@keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Uyarı başlığı */
+    .delete-header {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        padding: 30px;
+        text-align: center;
+        color: #fff;
+    }
+
+        .delete-header .warning-icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+
+    @@keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+    }
+
+    .delete-header h2 {
+        margin: 0 0 10px 0;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .delete-header p {
+        margin: 0;
+        font-size: 16px;
+        opacity: 0.95;
+    }
+
+    /* Ürün detayları bölümü */
+    .delete-body {
+        padding: 40px;
+    }
+
+    .product-details-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 25px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e9ecef;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .product-details-title i {
+            color: #dc3545;
+        }
+
+    /* Detay satırları */
+    .detail-row {
+        display: flex;
+        padding: 16px 0;
+        border-bottom: 1px solid #f1f3f5;
+        transition: background 0.2s ease;
+    }
+
+        .detail-row:hover {
+            background: #f8f9fa;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-left: -10px;
+            margin-right: -10px;
+            border-radius: 6px;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+    .detail-label {
+        flex: 0 0 180px;
+        font-weight: 600;
+        color: #6c757d;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .detail-label i {
+            color: #667eea;
+            font-size: 16px;
+        }
+
+    .detail-value {
+        flex: 1;
+        font-size: 16px;
+        color: #212529;
+        font-weight: 500;
+    }
+
+    /* Özel değer stilleri */
+    .value-category {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .value-stock {
+        font-size: 18px;
+        font-weight: 700;
+        color: #28a745;
+    }
+
+        .value-stock.low {
+            color: #ffc107;
+        }
+
+        .value-stock.out {
+            color: #dc3545;
+        }
+
+    .value-price {
+        font-size: 20px;
+        font-weight: 700;
+        color: #28a745;
+    }
+
+    /* Uyarı kutusu */
+    .warning-box {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 18px 20px;
+        border-radius: 6px;
+        margin: 30px 0;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+        .warning-box i {
+            color: #856404;
+            font-size: 24px;
+        }
+
+    .warning-box-content h4 {
+        margin: 0 0 5px 0;
+        color: #856404;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .warning-box-content p {
+        margin: 0;
+        color: #856404;
+        font-size: 14px;
+    }
+
+    /* Buton bölümü */
+    .delete-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-top: 35px;
+        padding-top: 30px;
+        border-top: 2px solid #e9ecef;
+    }
+
+    .action-btn {
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+
+    .btn-back {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #e9ecef;
+    }
+
+        .btn-back:hover {
+            background: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-decoration: none;
+        }
+
+    .btn-delete {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    }
+
+        .btn-delete:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .delete-body {
+            padding: 25px;
+        }
+
+        .detail-row {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .detail-label {
+            flex: none;
+        }
+
+        .delete-actions {
+            flex-direction: column-reverse;
+        }
+
+        .action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .delete-header .warning-icon {
+            font-size: 48px;
+        }
+
+        .delete-header h2 {
+            font-size: 22px;
+        }
+    }
+</style>
+
+<div class="delete-page-wrapper">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <div class="delete-card">
+
+                <!-- Uyarı Başlığı -->
+                <div class="delete-header">
+                    <div class="warning-icon">
+                        <i class="fa fa-exclamation-triangle"></i>
+                    </div>
+                    <h2>Ürün Silme İşlemi</h2>
+                    <p>Bu ürünü silmek istediğinizden emin misiniz?</p>
+                </div>
+
+                <!-- Ürün Detayları -->
+                <div class="delete-body">
+
+                    <div class="product-details-title">
+                        <i class="fa fa-info-circle"></i>
+                        Silinecek Ürün Bilgileri
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">
+                            <i class="fa fa-tags"></i>
+                            Kategori
+                        </div>
+                        <div class="detail-value">
+                            <span class="value-category">@Html.DisplayFor(model => model.Kategori.KategoriAdi)</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">
+                            <i class="fa fa-box"></i>
+                            Ürün Adı
+                        </div>
+                        <div class="detail-value">
+                            @Html.DisplayFor(model => model.UrunAdi)
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">
+                            <i class="fa fa-cubes"></i>
+                            Stok Adedi
+                        </div>
+                        <div class="detail-value">
+                            @if (Model.Stok <= 0)
+                            {
+                                <span class="value-stock out">@Model.Stok Adet (Tükendi)</span>
+                            }
+                            else if (Model.Stok < 10)
+                            {
+                                <span class="value-stock low">@Model.Stok Adet (Kritik)</span>
+                            }
+                            else
+                            {
+                                <span class="value-stock">@Model.Stok Adet</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">
+                            <i class="fa fa-lira-sign"></i>
+                            Birim Fiyat
+                        </div>
+                        <div class="detail-value">
+                            <span class="value-price">@Model.Fiyat.ToString("N2") ₺</span>
+                        </div>
+                    </div>
+
+                    <!-- Uyarı Mesajı -->
+                    <div class="warning-box">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <div class="warning-box-content">
+                            <h4>Dikkat!</h4>
+                            <p>Bu işlem geri alınamaz. Ürün kalıcı olarak silinecektir.</p>
+                        </div>
+                    </div>
+
+                    <!-- Aksiyon Butonları -->
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="delete-actions">
+                            <a href="@Url.Action("Index")" class="action-btn btn-back">
+                                <i class="fa fa-arrow-left"></i>
+                                İptal Et ve Geri Dön
+                            </a>
+                            <button type="submit" class="action-btn btn-delete">
+                                <i class="fa fa-trash"></i>
+                                Evet, Ürünü Sil
+                            </button>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

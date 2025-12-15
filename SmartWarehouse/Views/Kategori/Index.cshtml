@@ -1,0 +1,320 @@
+﻿@model IEnumerable<SmartWarehouse.Models.Kategori>
+
+@{
+    ViewBag.Title = "Kategori Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Content Header */
+    .content-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 25px 30px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .content-header h2 {
+            color: #fff;
+            margin: 0;
+            font-weight: 600;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+    .btn-add-new {
+        background: #fff;
+        color: #667eea;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .btn-add-new:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            color: #667eea;
+            text-decoration: none;
+        }
+
+    /* Table Container */
+    .table-container {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        overflow: hidden;
+    }
+
+    /* Modern Table */
+    .modern-table {
+        margin: 0;
+        width: 100%;
+    }
+
+        .modern-table thead {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-bottom: 2px solid #dee2e6;
+        }
+
+            .modern-table thead th {
+                color: #495057;
+                font-weight: 600;
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                padding: 16px 12px;
+                border: none;
+                vertical-align: middle;
+            }
+
+        .modern-table tbody td {
+            padding: 14px 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f3f5;
+            font-size: 14px;
+            color: #495057;
+        }
+
+        .modern-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+            .modern-table tbody tr:hover {
+                background-color: #f8f9fa;
+                transform: scale(1.001);
+            }
+
+            .modern-table tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+    /* ID Badge */
+    .id-badge {
+        display: inline-block;
+        background: #e9ecef;
+        color: #6c757d;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    /* Category Name */
+    .category-name {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+    }
+
+    /* Action Buttons */
+    .action-btn {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        border-radius: 6px;
+        margin: 0 2px;
+        transition: all 0.2s ease;
+        border: 1px solid #e9ecef;
+        background: #fff;
+        text-decoration: none;
+    }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+    .action-btn-edit:hover {
+        background: #007bff;
+        border-color: #007bff;
+    }
+
+        .action-btn-edit:hover i {
+            color: #fff !important;
+        }
+
+    .action-btn-view:hover {
+        background: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+        .action-btn-view:hover i {
+            color: #fff !important;
+        }
+
+    .action-btn-delete:hover {
+        background: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .action-btn-delete:hover i {
+            color: #fff !important;
+        }
+
+    /* Table Footer */
+    .table-footer {
+        background: #f8f9fa;
+        padding: 15px 20px;
+        border-radius: 0 0 8px 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .table-info {
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+        .table-info strong {
+            color: #495057;
+            font-weight: 600;
+        }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .empty-state-icon {
+        font-size: 64px;
+        color: #dee2e6;
+        margin-bottom: 20px;
+    }
+
+    .empty-state-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 10px;
+    }
+
+    .empty-state-text {
+        color: #6c757d;
+        margin-bottom: 20px;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .content-header {
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+
+            .content-header h2 {
+                font-size: 20px;
+            }
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <!-- Header -->
+        <div class="content-header">
+            <h2>
+                <i class="fa fa-tags"></i>
+                Kategori Yönetimi
+            </h2>
+            <a href="@Url.Action("Create")" class="btn-add-new">
+                <i class="fa fa-plus"></i> Yeni Kategori Ekle
+            </a>
+        </div>
+
+        <!-- Table Container -->
+        <div class="table-container">
+            @if (Model != null && Model.Any())
+            {
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 80px;">ID</th>
+                            <th>Kategori Adı</th>
+                            <th class="text-center" style="width: 140px;">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    <span class="id-badge">#@item.KategoriId</span>
+                                </td>
+
+                                <td>
+                                    <span class="category-name">@item.KategoriAdi</span>
+                                </td>
+
+                                <td class="text-center">
+                                    <a href="@Url.Action("Edit", new { id=item.KategoriId })"
+                                       class="action-btn action-btn-edit"
+                                       title="Düzenle">
+                                        <i class="fa fa-edit text-primary"></i>
+                                    </a>
+                                    <a href="@Url.Action("Details", new { id=item.KategoriId })"
+                                       class="action-btn action-btn-view"
+                                       title="Detaylar">
+                                        <i class="fa fa-eye text-info"></i>
+                                    </a>
+                                    <a href="@Url.Action("Delete", new { id=item.KategoriId })"
+                                       class="action-btn action-btn-delete"
+                                       title="Sil"
+                                       onclick="return confirm('Bu kategoriyi silmek istediğinizden emin misiniz?');">
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <!-- Footer -->
+                <div class="table-footer">
+                    <div class="table-info">
+                        Toplam <strong>@Model.Count()</strong> kategori listeleniyor
+                    </div>
+                    <div class="table-info">
+                        <i class="fa fa-info-circle"></i> Kategoriler ürün gruplaması için kullanılır
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fa fa-tags"></i>
+                    </div>
+                    <h3 class="empty-state-title">Henüz Kategori Yok</h3>
+                    <p class="empty-state-text">Ürünlerinizi organize etmek için kategori ekleyin</p>
+                    <a href="@Url.Action("Create")" class="btn-add-new">
+                        <i class="fa fa-plus"></i> İlk Kategoriyi Ekle
+                    </a>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>

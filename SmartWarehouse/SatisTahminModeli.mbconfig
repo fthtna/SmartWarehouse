@@ -1,0 +1,298 @@
+﻿{
+  "Scenario": "Regression",
+  "DataSource": {
+    "Type": "SQL",
+    "Version": 1,
+    "ColumnProperties": [
+      {
+        "ColumnName": "SatisId",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Adet",
+        "ColumnPurpose": "Label",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Tutar",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Tarih",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "DateTime",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "UrunId",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "MusteriId",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      }
+    ],
+    "ConnectionString": "Data Source=DESKTOP-N1F9723\\SQLEXPRESS;Initial Catalog=SmartWarehouseDb;Integrated Security=True;Trust Server Certificate=True",
+    "CommandString": "SELECT CAST([SatisId] as REAL), CAST([Adet] as REAL), CAST([Tutar] as REAL), [Tarih], CAST([UrunId] as REAL), CAST([MusteriId] as REAL) FROM [dbo].[Satis]",
+    "DatabaseName": "SmartWarehouseDb",
+    "SelectedTableDbo": "dbo",
+    "TableName": "Satis"
+  },
+  "Environment": {
+    "Type": "LocalCPU",
+    "Version": 1
+  },
+  "RunHistory": {
+    "Version": 3,
+    "Type": "Result",
+    "Trials": [
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastForestRegression",
+        "Score": 0.22813146581246518,
+        "RuntimeInSeconds": 0.164,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e3",
+          "e0": {
+            "OutputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ],
+            "InputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "NumberOfTrees": 11,
+            "NumberOfLeaves": 4,
+            "FeatureFraction": 0.91416794,
+            "LabelColumnName": "Adet",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastForestRegression",
+        "Score": 0.22356802842322487,
+        "RuntimeInSeconds": 0.135,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e3",
+          "e0": {
+            "OutputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ],
+            "InputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "NumberOfTrees": 14,
+            "NumberOfLeaves": 4,
+            "FeatureFraction": 0.91084254,
+            "LabelColumnName": "Adet",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastForestRegression",
+        "Score": 0.22356802842322487,
+        "RuntimeInSeconds": 0.138,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e3",
+          "e0": {
+            "OutputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ],
+            "InputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "NumberOfTrees": 14,
+            "NumberOfLeaves": 5,
+            "FeatureFraction": 0.91499144,
+            "LabelColumnName": "Adet",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastForestRegression",
+        "Score": 0.21367812236748468,
+        "RuntimeInSeconds": 0.135,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e3",
+          "e0": {
+            "OutputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ],
+            "InputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "NumberOfTrees": 11,
+            "NumberOfLeaves": 4,
+            "FeatureFraction": 0.92197263,
+            "LabelColumnName": "Adet",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastForestRegression",
+        "Score": 0.2056839610458166,
+        "RuntimeInSeconds": 0.171,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e3",
+          "e0": {
+            "OutputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ],
+            "InputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "SatisId",
+              "Tutar",
+              "UrunId",
+              "MusteriId"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e3": {
+            "NumberOfTrees": 12,
+            "NumberOfLeaves": 4,
+            "FeatureFraction": 0.9606626,
+            "LabelColumnName": "Adet",
+            "FeatureColumnName": "Features"
+          }
+        }
+      }
+    ],
+    "Estimators": {
+      "e0": "ReplaceMissingValues",
+      "e1": "Concatenate",
+      "e2": "FastTreeRegression",
+      "e3": "FastForestRegression",
+      "e4": "LightGbmRegression",
+      "e5": "LbfgsPoissonRegressionRegression",
+      "e6": "SdcaRegression"
+    },
+    "Schema": "e0 * e1 * (e2 + e3 + e4 + e5 + e6)",
+    "MetricName": "RSquared",
+    "ModelFilePath": "C:\\Users\\yılmaz\\source\\repos\\SmartWarehouse\\SmartWarehouse\\SatisTahminModeli.mlnet"
+  },
+  "Type": "TrainingConfig",
+  "Version": 5,
+  "TrainingOption": {
+    "Version": 2,
+    "Subsampling": false,
+    "Type": "RegressionTrainingOption",
+    "TrainingTime": 60,
+    "LabelColumn": "Adet",
+    "ValidationOption": {
+      "Version": 0,
+      "Type": "CrossValidationValidationOption",
+      "NumberOfFolds": 5
+    }
+  }
+}

@@ -1,0 +1,427 @@
+﻿@model SmartWarehouse.Models.Musteri
+
+@{
+    ViewBag.Title = "Müşteri Düzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .edit-page-wrapper {
+        padding: 30px;
+    }
+
+    .edit-form-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+        animation: slideUp 0.5s ease;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    @@keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .edit-form-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 25px 30px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .edit-header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .edit-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    .edit-form-header h3 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+    .edit-form-header p {
+        margin: 5px 0 0 0;
+        opacity: 0.9;
+        font-size: 14px;
+    }
+
+    .customer-badge {
+        background: rgba(255,255,255,0.2);
+        padding: 6px 14px;
+        border-radius: 16px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .edit-form-body {
+        padding: 40px;
+    }
+
+    .current-info-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+        .current-info-card h4 {
+            margin: 0 0 15px 0;
+            font-size: 16px;
+            font-weight: 600;
+            opacity: 0.95;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+    .current-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .current-info-item {
+        background: rgba(255,255,255,0.15);
+        padding: 12px;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+    }
+
+    .current-info-label {
+        font-size: 11px;
+        opacity: 0.9;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .current-info-value {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .edit-info-box {
+        background: #e7f3ff;
+        border-left: 4px solid #2196F3;
+        padding: 14px 18px;
+        border-radius: 6px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+        .edit-info-box i {
+            color: #2196F3;
+            font-size: 18px;
+        }
+
+        .edit-info-box p {
+            margin: 0;
+            color: #495057;
+            font-size: 14px;
+        }
+
+    .edit-form-group {
+        margin-bottom: 28px;
+    }
+
+        .edit-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .edit-form-group label i {
+                color: #667eea;
+                font-size: 16px;
+            }
+
+    .edit-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+    }
+
+        .edit-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+    .edit-input-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 28px;
+    }
+
+    .edit-input-col {
+        flex: 1;
+    }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 6px;
+        display: block;
+        font-weight: 500;
+    }
+
+    .edit-form-divider {
+        height: 1px;
+        background: linear-gradient(to right, transparent, #e9ecef, transparent);
+        margin: 35px 0;
+    }
+
+    .edit-btn-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 30px;
+        padding-top: 25px;
+        border-top: 2px solid #e9ecef;
+    }
+
+    .edit-action-btn {
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+
+    .edit-btn-cancel {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #e9ecef;
+    }
+
+        .edit-btn-cancel:hover {
+            background: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-decoration: none;
+        }
+
+    .edit-btn-submit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+        .edit-btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+    @@media (max-width: 768px) {
+        .edit-page-wrapper {
+            padding: 20px;
+        }
+
+        .edit-form-body {
+            padding: 25px;
+        }
+
+        .edit-input-row {
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .edit-btn-actions {
+            flex-direction: column;
+        }
+
+        .edit-action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .edit-form-header {
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .current-info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="edit-page-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="edit-form-card">
+
+                <div class="edit-form-header">
+                    <div class="edit-header-left">
+                        <div class="edit-icon">
+                            <i class="fas fa-user-edit"></i>
+                        </div>
+                        <div>
+                            <h3>Müşteri Düzenleme</h3>
+                            <p>@Model.MusteriAdi @Model.MusteriSoyadi bilgilerini güncelleyin</p>
+                        </div>
+                    </div>
+                    <div class="customer-badge">
+                        ID: #@Model.MusteriId
+                    </div>
+                </div>
+
+                <div class="edit-form-body">
+
+                    <div class="current-info-card">
+                        <h4>
+                            <i class="fas fa-info-circle"></i>
+                            Mevcut Bilgiler
+                        </h4>
+                        <div class="current-info-grid">
+                            <div class="current-info-item">
+                                <div class="current-info-label">Ad</div>
+                                <div class="current-info-value">@Model.MusteriAdi</div>
+                            </div>
+                            <div class="current-info-item">
+                                <div class="current-info-label">Soyad</div>
+                                <div class="current-info-value">@Model.MusteriSoyadi</div>
+                            </div>
+                            <div class="current-info-item">
+                                <div class="current-info-label">Telefon</div>
+                                <div class="current-info-value">@Model.Telefon</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="edit-info-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Değiştirmek istediğiniz alanları güncelleyin ve kaydedin.</p>
+                    </div>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.MusteriId)
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="edit-input-row">
+                            <div class="edit-input-col">
+                                <div class="edit-form-group">
+                                    <label>
+                                        <i class="fas fa-user"></i>
+                                        Müşteri Adı
+                                    </label>
+                                    @Html.EditorFor(model => model.MusteriAdi, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "edit-input",
+                                            placeholder = "Müşteri adını giriniz"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.MusteriAdi, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="edit-input-col">
+                                <div class="edit-form-group">
+                                    <label>
+                                        <i class="fas fa-user"></i>
+                                        Müşteri Soyadı
+                                    </label>
+                                    @Html.EditorFor(model => model.MusteriSoyadi, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "edit-input",
+                                            placeholder = "Müşteri soyadını giriniz"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.MusteriSoyadi, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="edit-form-group">
+                            <label>
+                                <i class="fas fa-phone"></i>
+                                Telefon Numarası
+                            </label>
+                            @Html.EditorFor(model => model.Telefon, new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @class = "edit-input",
+                                    placeholder = "Telefon numarasını giriniz"
+                                }
+                            })
+                            @Html.ValidationMessageFor(model => model.Telefon, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="edit-form-divider"></div>
+
+                        <div class="edit-btn-actions">
+                            <a href="@Url.Action("Index")" class="edit-action-btn edit-btn-cancel">
+                                <i class="fas fa-times"></i>
+                                İptal Et
+                            </a>
+                            <button type="submit" class="edit-action-btn edit-btn-submit">
+                                <i class="fas fa-save"></i>
+                                Değişiklikleri Kaydet
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

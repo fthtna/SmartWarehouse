@@ -1,0 +1,378 @@
+﻿@model SmartWarehouse.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Kayıt Ol";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Smart Warehouse</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.1/cosmo/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 1000px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            animation: slideUp 0.6s ease;
+        }
+
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-left {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 40px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .register-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .register-left h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .register-left p {
+            font-size: 16px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .benefits-list {
+            margin-top: 40px;
+            list-style: none;
+        }
+
+            .benefits-list li {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 15px;
+                font-size: 15px;
+            }
+
+            .benefits-list i {
+                width: 30px;
+                height: 30px;
+                background: rgba(255,255,255,0.2);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+        .register-right {
+            flex: 1;
+            padding: 60px 50px;
+        }
+
+        .register-header {
+            margin-bottom: 40px;
+        }
+
+            .register-header h2 {
+                font-size: 28px;
+                font-weight: 700;
+                color: #2d3561;
+                margin-bottom: 10px;
+            }
+
+            .register-header p {
+                color: #6c757d;
+                font-size: 15px;
+            }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 600;
+                color: #495057;
+                font-size: 14px;
+            }
+
+        .form-control-modern {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+            .form-control-modern:focus {
+                outline: none;
+                border-color: #667eea;
+                background: #fff;
+                box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            }
+
+        .password-strength {
+            height: 4px;
+            background: #e9ecef;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: all 0.3s ease;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            margin-top: 10px;
+        }
+
+            .btn-register:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            }
+
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+            .login-link a {
+                color: #667eea;
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+                .login-link a:hover {
+                    text-decoration: underline;
+                }
+
+        .text-danger {
+            color: #dc3545;
+            font-size: 13px;
+            margin-top: 6px;
+            display: block;
+        }
+
+        .validation-summary-errors {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c00;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+            .validation-summary-errors ul {
+                margin: 0;
+                padding-left: 20px;
+            }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #495057;
+        }
+
+            .info-box i {
+                color: #2196F3;
+                font-size: 16px;
+            }
+
+        @@media (max-width: 768px) {
+            .register-container {
+                flex-direction: column;
+                max-width: 500px;
+            }
+
+            .register-left {
+                padding: 40px 30px;
+            }
+
+                .register-left h1 {
+                    font-size: 28px;
+                }
+
+            .benefits-list {
+                margin-top: 20px;
+            }
+
+            .register-right {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+
+        <!-- Left Side -->
+        <div class="register-left">
+            <div class="register-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <div class="logo-text">Smart Warehouse</div>
+            </div>
+
+            <h1>Hesap Oluştur</h1>
+            <p>Ücretsiz hesabınızı oluşturun ve depo yönetim sistemini kullanmaya başlayın.</p>
+
+            <ul class="benefits-list">
+                <li>
+                    <i class="fas fa-check"></i>
+                    <span>Sınırsız Ürün Kaydı</span>
+                </li>
+                <li>
+                    <i class="fas fa-check"></i>
+                    <span>Gerçek Zamanlı Stok Takibi</span>
+                </li>
+                <li>
+                    <i class="fas fa-check"></i>
+                    <span>Detaylı Raporlar</span>
+                </li>
+                <li>
+                    <i class="fas fa-check"></i>
+                    <span>Güvenli Veri Saklama</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Right Side -->
+        <div class="register-right">
+            <div class="register-header">
+                <h2>Kayıt Ol</h2>
+                <p>Bilgilerinizi girerek yeni hesap oluşturun</p>
+            </div>
+
+            <div class="info-box">
+                <i class="fas fa-info-circle"></i>
+                <span>Güçlü bir şifre seçtiğinizden emin olun (en az 6 karakter)</span>
+            </div>
+
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary("", new { @class = "validation-summary-errors" })
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email, "E-posta Adresi")
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control-modern", placeholder = "ornek@email.com", type = "email" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, "Şifre")
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control-modern", placeholder = "En az 6 karakter" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, "Şifre Tekrar")
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control-modern", placeholder = "Şifrenizi tekrar girin" })
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn-register">
+                    <i class="fas fa-user-plus"></i> Hesap Oluştur
+                </button>
+
+                <div class="login-link">
+                    Zaten hesabınız var mı? @Html.ActionLink("Giriş Yap", "Login")
+                </div>
+            }
+        </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+</body>
+</html>

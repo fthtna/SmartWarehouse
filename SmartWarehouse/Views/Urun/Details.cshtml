@@ -1,0 +1,543 @@
+﻿@model SmartWarehouse.Models.Urun
+
+@{
+    ViewBag.Title = "Ürün Detayları";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Sayfa arka planı */
+    .details-page-wrapper {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: calc(100vh - 100px);
+        padding: 40px 0;
+    }
+
+    /* Detay kartı */
+    .details-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+        animation: fadeIn 0.5s ease;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Başlık bölümü */
+    .details-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 30px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .details-header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .details-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+    }
+
+    .details-title h2 {
+        margin: 0 0 5px 0;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .details-title p {
+        margin: 0;
+        opacity: 0.9;
+        font-size: 14px;
+    }
+
+    .product-id-badge {
+        background: rgba(255,255,255,0.2);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    /* İçerik bölümü */
+    .details-body {
+        padding: 40px;
+    }
+
+    /* Bilgi kartları */
+    .info-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 35px;
+    }
+
+    .info-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 10px;
+        padding: 20px;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+    .info-card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .info-card-icon {
+        width: 40px;
+        height: 40px;
+        background: #667eea;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 18px;
+    }
+
+    .info-card-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #6c757d;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .info-card-value {
+        font-size: 22px;
+        font-weight: 700;
+        color: #212529;
+        margin-top: 5px;
+    }
+
+    /* Özel kart stilleri */
+    .card-category .info-card-icon {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .card-stock .info-card-icon {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    }
+
+    .card-stock.low .info-card-icon {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .card-price .info-card-icon {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+
+    .info-card-value .badge-category {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+
+    .info-card-value .stock-indicator {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .stock-status {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-left: 10px;
+    }
+
+    .status-available {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .status-low {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .status-out {
+        background: #f8d7da;
+        color: #721c24;
+    }
+
+    /* Detaylı bilgiler bölümü */
+    .detailed-info {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+    .detailed-info-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .detailed-info-title i {
+            color: #667eea;
+        }
+
+    .info-row {
+        display: flex;
+        padding: 14px 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+    .info-label {
+        flex: 0 0 160px;
+        font-weight: 600;
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    .info-value {
+        flex: 1;
+        color: #212529;
+        font-size: 14px;
+    }
+
+    /* İstatistik kutusu */
+    .stats-box {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+        .stats-box h4 {
+            margin: 0 0 15px 0;
+            font-size: 16px;
+            font-weight: 600;
+            opacity: 0.95;
+        }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .stat-item {
+        background: rgba(255,255,255,0.15);
+        padding: 15px;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+    }
+
+    .stat-label {
+        font-size: 12px;
+        opacity: 0.9;
+        margin-bottom: 5px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    /* Aksiyon butonları */
+    .details-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        padding-top: 25px;
+        border-top: 2px solid #e9ecef;
+    }
+
+    .action-btn {
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+
+    .btn-back {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #e9ecef;
+    }
+
+        .btn-back:hover {
+            background: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-decoration: none;
+        }
+
+    .btn-edit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+        .btn-edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+            color: #fff;
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .details-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 15px;
+        }
+
+        .details-header-left {
+            flex-direction: column;
+        }
+
+        .details-body {
+            padding: 25px;
+        }
+
+        .info-cards {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .info-row {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .details-actions {
+            flex-direction: column;
+        }
+
+        .action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<div class="details-page-wrapper">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+
+            <div class="details-card">
+
+                <!-- Başlık -->
+                <div class="details-header">
+                    <div class="details-header-left">
+                        <div class="details-icon">
+                            <i class="fa fa-cube"></i>
+                        </div>
+                        <div class="details-title">
+                            <h2>@Model.UrunAdi</h2>
+                            <p>Ürün Detay Bilgileri</p>
+                        </div>
+                    </div>
+                    <div class="product-id-badge">
+                        ID: #@Model.UrunId
+                    </div>
+                </div>
+
+                <!-- İçerik -->
+                <div class="details-body">
+
+                    <!-- Bilgi Kartları -->
+                    <div class="info-cards">
+
+                        <!-- Kategori Kartı -->
+                        <div class="info-card card-category">
+                            <div class="info-card-header">
+                                <div class="info-card-icon">
+                                    <i class="fa fa-tags"></i>
+                                </div>
+                                <div class="info-card-label">Kategori</div>
+                            </div>
+                            <div class="info-card-value">
+                                <span class="badge-category">@Model.Kategori.KategoriAdi</span>
+                            </div>
+                        </div>
+
+                        <!-- Stok Kartı -->
+                        <div class="info-card card-stock @(Model.Stok < 10 ? "low" : "")">
+                            <div class="info-card-header">
+                                <div class="info-card-icon">
+                                    <i class="fa fa-cubes"></i>
+                                </div>
+                                <div class="info-card-label">Stok Durumu</div>
+                            </div>
+                            <div class="info-card-value">
+                                <div class="stock-indicator">
+                                    <span>@Model.Stok Adet</span>
+                                    @if (Model.Stok <= 0)
+                                    {
+                                        <span class="stock-status status-out">
+                                            <i class="fa fa-times-circle"></i> Tükendi
+                                        </span>
+                                    }
+                                    else if (Model.Stok < 10)
+                                    {
+                                        <span class="stock-status status-low">
+                                            <i class="fa fa-exclamation-triangle"></i> Kritik
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="stock-status status-available">
+                                            <i class="fa fa-check-circle"></i> Yeterli
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fiyat Kartı -->
+                        <div class="info-card card-price">
+                            <div class="info-card-header">
+                                <div class="info-card-icon">
+                                    <i class="fa fa-lira-sign"></i>
+                                </div>
+                                <div class="info-card-label">Birim Fiyat</div>
+                            </div>
+                            <div class="info-card-value">
+                                @Model.Fiyat.ToString("N2") ₺
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- İstatistik Kutusu -->
+                    <div class="stats-box">
+                        <h4><i class="fa fa-chart-line"></i> Hızlı İstatistikler</h4>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-label">Toplam Değer</div>
+                                <div class="stat-value">@((Model.Stok * Model.Fiyat).ToString("N2")) ₺</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Ürün Durumu</div>
+                                <div class="stat-value">
+                                    @if (Model.Stok > 0)
+                                    {
+                                        <span>Aktif</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Pasif</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detaylı Bilgiler -->
+                    <div class="detailed-info">
+                        <div class="detailed-info-title">
+                            <i class="fa fa-info-circle"></i>
+                            Detaylı Bilgiler
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-label">Ürün ID:</div>
+                            <div class="info-value">#@Model.UrunId</div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-label">Ürün Adı:</div>
+                            <div class="info-value">@Model.UrunAdi</div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-label">Kategori:</div>
+                            <div class="info-value">@Model.Kategori.KategoriAdi</div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-label">Mevcut Stok:</div>
+                            <div class="info-value">@Model.Stok Adet</div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-label">Birim Fiyat:</div>
+                            <div class="info-value">@Model.Fiyat.ToString("N2") ₺</div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-label">Stok Toplam Değeri:</div>
+                            <div class="info-value"><strong>@((Model.Stok * Model.Fiyat).ToString("N2")) ₺</strong></div>
+                        </div>
+                    </div>
+
+                    <!-- Aksiyon Butonları -->
+                    <div class="details-actions">
+                        <a href="@Url.Action("Index")" class="action-btn btn-back">
+                            <i class="fa fa-arrow-left"></i>
+                            Listeye Dön
+                        </a>
+                        <a href="@Url.Action("Edit", new { id = Model.UrunId })" class="action-btn btn-edit">
+                            <i class="fa fa-edit"></i>
+                            Düzenle
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

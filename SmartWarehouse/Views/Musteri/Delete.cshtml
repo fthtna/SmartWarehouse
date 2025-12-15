@@ -1,0 +1,360 @@
+﻿@model SmartWarehouse.Models.Musteri
+
+@{
+    ViewBag.Title = "Müşteri Sil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .delete-page-wrapper {
+        padding: 30px;
+    }
+
+    .delete-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+        animation: slideDown 0.5s ease;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    @@keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .delete-header {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        padding: 30px;
+        text-align: center;
+        color: #fff;
+    }
+
+    .warning-icon {
+        font-size: 64px;
+        margin-bottom: 15px;
+        animation: pulse 2s infinite;
+    }
+
+    @@keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+    }
+
+    .delete-header h2 {
+        margin: 0 0 10px 0;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .delete-header p {
+        margin: 0;
+        font-size: 16px;
+        opacity: 0.95;
+    }
+
+    .delete-body {
+        padding: 40px;
+    }
+
+    .customer-details-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 25px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e9ecef;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .customer-details-title i {
+            color: #dc3545;
+        }
+
+    .customer-display {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border: 2px solid #e9ecef;
+    }
+
+    .customer-avatar {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        color: #fff;
+        margin: 0 auto 20px;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .customer-info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        text-align: center;
+    }
+
+    .customer-info-item {
+        padding: 15px;
+        background: #fff;
+        border-radius: 8px;
+    }
+
+    .customer-info-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #6c757d;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+
+    .customer-info-value {
+        font-size: 16px;
+        font-weight: 700;
+        color: #2d3561;
+    }
+
+    .sales-alert {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 18px 20px;
+        border-radius: 6px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+        .sales-alert i {
+            color: #856404;
+            font-size: 24px;
+        }
+
+    .sales-alert-content h4 {
+        margin: 0 0 5px 0;
+        color: #856404;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .sales-alert-content p {
+        margin: 0;
+        color: #856404;
+        font-size: 14px;
+    }
+
+    .warning-box {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 18px 20px;
+        border-radius: 6px;
+        margin: 25px 0;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+        .warning-box i {
+            color: #856404;
+            font-size: 24px;
+        }
+
+    .warning-box-content h4 {
+        margin: 0 0 5px 0;
+        color: #856404;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .warning-box-content p {
+        margin: 0;
+        color: #856404;
+        font-size: 14px;
+    }
+
+    .delete-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-top: 30px;
+        padding-top: 25px;
+        border-top: 2px solid #e9ecef;
+    }
+
+    .action-btn {
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+
+    .btn-back {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #e9ecef;
+    }
+
+        .btn-back:hover {
+            background: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-decoration: none;
+        }
+
+    .btn-delete {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    }
+
+        .btn-delete:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+
+    @@media (max-width: 768px) {
+        .delete-page-wrapper {
+            padding: 20px;
+        }
+
+        .delete-body {
+            padding: 25px;
+        }
+
+        .customer-info-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .delete-actions {
+            flex-direction: column-reverse;
+        }
+
+        .action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .warning-icon {
+            font-size: 48px;
+        }
+
+        .delete-header h2 {
+            font-size: 22px;
+        }
+    }
+</style>
+
+<div class="delete-page-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="delete-card">
+
+                <div class="delete-header">
+                    <div class="warning-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h2>Müşteri Silme İşlemi</h2>
+                    <p>Bu müşteriyi silmek istediğinizden emin misiniz?</p>
+                </div>
+
+                <div class="delete-body">
+
+                    <div class="customer-details-title">
+                        <i class="fas fa-info-circle"></i>
+                        Silinecek Müşteri Bilgileri
+                    </div>
+
+                    <div class="customer-display">
+                        <div class="customer-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="customer-info-grid">
+                            <div class="customer-info-item">
+                                <div class="customer-info-label">Ad</div>
+                                <div class="customer-info-value">@Model.MusteriAdi</div>
+                            </div>
+                            <div class="customer-info-item">
+                                <div class="customer-info-label">Soyad</div>
+                                <div class="customer-info-value">@Model.MusteriSoyadi</div>
+                            </div>
+                            <div class="customer-info-item">
+                                <div class="customer-info-label">Telefon</div>
+                                <div class="customer-info-value">@Model.Telefon</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Model.Satislar != null && Model.Satislar.Any())
+                    {
+                        <div class="sales-alert">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <div class="sales-alert-content">
+                                <h4>Dikkat! Bu Müşteriye Ait Satışlar Var</h4>
+                                <p>Bu müşteriye ait <strong>@Model.Satislar.Count() adet satış</strong> kaydı bulunmaktadır. Müşteriyi silmek satış kayıtlarını etkileyebilir.</p>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="warning-box">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div class="warning-box-content">
+                            <h4>Dikkat!</h4>
+                            <p>Bu işlem geri alınamaz. Müşteri kalıcı olarak silinecektir.</p>
+                        </div>
+                    </div>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="delete-actions">
+                            <a href="@Url.Action("Index")" class="action-btn btn-back">
+                                <i class="fas fa-arrow-left"></i>
+                                İptal Et ve Geri Dön
+                            </a>
+                            <button type="submit" class="action-btn btn-delete">
+                                <i class="fas fa-trash"></i>
+                                Evet, Müşteriyi Sil
+                            </button>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

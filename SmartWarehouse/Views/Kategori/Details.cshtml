@@ -1,0 +1,444 @@
+﻿@model SmartWarehouse.Models.Kategori
+
+@{
+    ViewBag.Title = "Kategori Detayları";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Page Wrapper */
+    .details-page-wrapper {
+        padding: 30px;
+    }
+
+    /* Details Card */
+    .details-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+        animation: fadeIn 0.5s ease;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Header */
+    .details-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 30px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .details-header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .details-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+    }
+
+    .details-title h2 {
+        margin: 0 0 5px 0;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .details-title p {
+        margin: 0;
+        opacity: 0.9;
+        font-size: 14px;
+    }
+
+    .category-id-badge {
+        background: rgba(255,255,255,0.2);
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    /* Body */
+    .details-body {
+        padding: 40px;
+    }
+
+    /* Info Card */
+    .info-card-main {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 10px;
+        padding: 30px;
+        border: 2px solid #e9ecef;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .info-card-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        color: #fff;
+        flex-shrink: 0;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .info-card-content {
+        flex: 1;
+    }
+
+    .info-card-label {
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #6c757d;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+
+    .info-card-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: #2d3561;
+    }
+
+    /* Detail Rows */
+    .detail-section {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 25px;
+    }
+
+    .detail-section-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .detail-section-title i {
+            color: #667eea;
+        }
+
+    .detail-row {
+        display: flex;
+        padding: 14px 0;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+    .detail-label {
+        flex: 0 0 160px;
+        font-weight: 600;
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    .detail-value {
+        flex: 1;
+        color: #212529;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    /* Stats Box */
+    .stats-box {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 25px;
+    }
+
+        .stats-box h4 {
+            margin: 0 0 15px 0;
+            font-size: 16px;
+            font-weight: 600;
+            opacity: 0.95;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+    .stats-content {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .stat-icon-large {
+        width: 60px;
+        height: 60px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+    }
+
+    .stat-text p {
+        margin: 0 0 5px 0;
+        font-size: 13px;
+        opacity: 0.9;
+    }
+
+    .stat-text h3 {
+        margin: 0;
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    /* Action Buttons */
+    .details-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        padding-top: 25px;
+        border-top: 2px solid #e9ecef;
+    }
+
+    .action-btn {
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+
+    .btn-back {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #e9ecef;
+    }
+
+        .btn-back:hover {
+            background: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-decoration: none;
+        }
+
+    .btn-edit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+        .btn-edit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            text-decoration: none;
+            color: #fff;
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .details-page-wrapper {
+            padding: 20px;
+        }
+
+        .details-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 15px;
+        }
+
+        .details-header-left {
+            flex-direction: column;
+        }
+
+        .details-body {
+            padding: 25px;
+        }
+
+        .info-card-main {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .detail-row {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .details-actions {
+            flex-direction: column;
+        }
+
+        .action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .stats-content {
+            justify-content: center;
+        }
+    }
+</style>
+
+<div class="details-page-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="details-card">
+
+                <!-- Header -->
+                <div class="details-header">
+                    <div class="details-header-left">
+                        <div class="details-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <div class="details-title">
+                            <h2>@Model.KategoriAdi</h2>
+                            <p>Kategori Detay Bilgileri</p>
+                        </div>
+                    </div>
+                    <div class="category-id-badge">
+                        ID: #@Model.KategoriId
+                    </div>
+                </div>
+
+                <!-- Body -->
+                <div class="details-body">
+
+                    <!-- Main Info Card -->
+                    <div class="info-card-main">
+                        <div class="info-card-icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <div class="info-card-content">
+                            <div class="info-card-label">Kategori Adı</div>
+                            <div class="info-card-value">@Model.KategoriAdi</div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Box -->
+                    <div class="stats-box">
+                        <h4>
+                            <i class="fas fa-chart-bar"></i>
+                            Kategori İstatistikleri
+                        </h4>
+                        <div class="stats-content">
+                            <div class="stat-icon-large">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="stat-text">
+                                <p>Bu Kategorideki Ürün Sayısı</p>
+                                <h3>
+                                    @if (Model.Urunler != null)
+                                    {
+                                        @Model.Urunler.Count()
+                                    }
+                                    else
+                                    {
+                                        <text>0</text>
+                                    }
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Info -->
+                    <div class="detail-section">
+                        <div class="detail-section-title">
+                            <i class="fas fa-info-circle"></i>
+                            Detaylı Bilgiler
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">Kategori ID:</div>
+                            <div class="detail-value">#@Model.KategoriId</div>
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">Kategori Adı:</div>
+                            <div class="detail-value">@Model.KategoriAdi</div>
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">Toplam Ürün:</div>
+                            <div class="detail-value">
+                                @if (Model.Urunler != null)
+                                {
+                                    @Model.Urunler.Count()
+                                    <text> Adet</text>
+                                }
+                                else
+                                {
+                                    <text>0 Adet</text>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="detail-row">
+                            <div class="detail-label">Durum:</div>
+                            <div class="detail-value">
+                                <span style="color: #2ecc71; font-weight: 600;">
+                                    <i class="fas fa-check-circle"></i> Aktif
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="details-actions">
+                        <a href="@Url.Action("Index")" class="action-btn btn-back">
+                            <i class="fas fa-arrow-left"></i>
+                            Listeye Dön
+                        </a>
+                        <a href="@Url.Action("Edit", new { id = Model.KategoriId })" class="action-btn btn-edit">
+                            <i class="fas fa-edit"></i>
+                            Düzenle
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

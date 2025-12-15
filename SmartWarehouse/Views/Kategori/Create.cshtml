@@ -1,0 +1,361 @@
+﻿@model SmartWarehouse.Models.Kategori
+
+@{
+    ViewBag.Title = "Yeni Kategori Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Page Wrapper */
+    .create-page-wrapper {
+        padding: 30px;
+    }
+
+    /* Form Card */
+    .create-form-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+        animation: slideUp 0.5s ease;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    @@keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Form Header */
+    .create-form-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 25px 30px;
+        color: #fff;
+    }
+
+        .create-form-header h3 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .create-form-header p {
+            margin: 8px 0 0 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+    /* Form Body */
+    .create-form-body {
+        padding: 40px;
+    }
+
+    /* Info Box */
+    .create-info-box {
+        background: #e7f3ff;
+        border-left: 4px solid #2196F3;
+        padding: 14px 18px;
+        border-radius: 6px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+        .create-info-box i {
+            color: #2196F3;
+            font-size: 18px;
+        }
+
+        .create-info-box p {
+            margin: 0;
+            color: #495057;
+            font-size: 14px;
+        }
+
+    /* Examples Box */
+    .examples-box {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+
+    .examples-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .examples-title i {
+            color: #667eea;
+        }
+
+    .example-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .example-tag {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    /* Form Group */
+    .create-form-group {
+        margin-bottom: 28px;
+    }
+
+        .create-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .create-form-group label i {
+                color: #667eea;
+                font-size: 16px;
+            }
+
+    /* Input */
+    .create-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+    }
+
+        .create-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .create-input::placeholder {
+            color: #adb5bd;
+        }
+
+    /* Validation */
+    .text-danger,
+    .field-validation-error {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 6px;
+        display: block;
+        font-weight: 500;
+    }
+
+    .validation-summary-errors {
+        background: #fee;
+        border: 1px solid #fcc;
+        color: #c00;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+    }
+
+        .validation-summary-errors ul {
+            margin: 5px 0 0 0;
+            padding-left: 20px;
+        }
+
+    /* Divider */
+    .create-form-divider {
+        height: 1px;
+        background: linear-gradient(to right, transparent, #e9ecef, transparent);
+        margin: 35px 0;
+    }
+
+    /* Buttons */
+    .create-btn-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 30px;
+    }
+
+    .create-action-btn {
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+
+    .create-btn-cancel {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #e9ecef;
+    }
+
+        .create-btn-cancel:hover {
+            background: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-decoration: none;
+        }
+
+    .create-btn-submit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+        .create-btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .create-page-wrapper {
+            padding: 20px;
+        }
+
+        .create-form-body {
+            padding: 25px;
+        }
+
+        .create-btn-actions {
+            flex-direction: column;
+        }
+
+        .create-action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .example-tags {
+            flex-direction: column;
+        }
+
+        .example-tag {
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="create-page-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="create-form-card">
+
+                <!-- Form Header -->
+                <div class="create-form-header">
+                    <h3>
+                        <i class="fas fa-plus-circle"></i>
+                        Yeni Kategori Kaydı
+                    </h3>
+                    <p>Ürünlerinizi organize etmek için yeni bir kategori oluşturun</p>
+                </div>
+
+                <!-- Form Body -->
+                <div class="create-form-body">
+
+                    <!-- Info Box -->
+                    <div class="create-info-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Kategoriler, ürünlerinizi gruplamak ve daha kolay yönetmek için kullanılır.</p>
+                    </div>
+
+                    <!-- Examples Box -->
+                    <div class="examples-box">
+                        <div class="examples-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Örnek Kategori Adları
+                        </div>
+                        <div class="example-tags">
+                            <span class="example-tag">Elektronik</span>
+                            <span class="example-tag">Giyim</span>
+                            <span class="example-tag">Gıda</span>
+                            <span class="example-tag">Mobilya</span>
+                            <span class="example-tag">Kozmetik</span>
+                            <span class="example-tag">Spor</span>
+                        </div>
+                    </div>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+
+                        <!-- Category Name -->
+                        <div class="create-form-group">
+                            <label>
+                                <i class="fas fa-tag"></i>
+                                Kategori Adı
+                            </label>
+                            @Html.EditorFor(model => model.KategoriAdi, new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @class = "create-input",
+                                    placeholder = "Örn: Elektronik, Giyim, Gıda..."
+                                }
+                            })
+                            @Html.ValidationMessageFor(model => model.KategoriAdi, "", new { @class = "text-danger" })
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="create-form-divider"></div>
+
+                        <!-- Action Buttons -->
+                        <div class="create-btn-actions">
+                            <a href="@Url.Action("Index")" class="create-action-btn create-btn-cancel">
+                                <i class="fas fa-arrow-left"></i>
+                                İptal Et
+                            </a>
+                            <button type="submit" class="create-action-btn create-btn-submit">
+                                <i class="fas fa-check"></i>
+                                Kategoriyi Kaydet
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

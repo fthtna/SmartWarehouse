@@ -1,0 +1,497 @@
+﻿@model SmartWarehouse.Models.Urun
+
+@{
+    ViewBag.Title = "Ürün Düzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Sayfa arka planı */
+    .edit-page-wrapper {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: calc(100vh - 100px);
+        padding: 40px 0;
+    }
+
+    /* Form kartı */
+    .edit-form-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+        animation: slideUp 0.5s ease;
+    }
+
+    @@keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Form başlığı */
+    .edit-form-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 25px 30px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .edit-header-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .edit-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    .edit-form-header h3 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+    .edit-form-header p {
+        margin: 5px 0 0 0;
+        opacity: 0.9;
+        font-size: 14px;
+    }
+
+    .current-product-badge {
+        background: rgba(255,255,255,0.2);
+        padding: 6px 14px;
+        border-radius: 16px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    /* Form gövdesi */
+    .edit-form-body {
+        padding: 40px;
+    }
+
+    /* Form grup stilleri */
+    .edit-form-group {
+        margin-bottom: 28px;
+        position: relative;
+    }
+
+        .edit-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .edit-form-group label i {
+                color: #667eea;
+                font-size: 16px;
+            }
+
+    /* Input stilleri */
+    .edit-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+    }
+
+        .edit-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .edit-input::placeholder {
+            color: #adb5bd;
+        }
+
+    /* Select (dropdown) stilleri */
+    select.edit-input {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667eea' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 16px center;
+        padding-right: 45px;
+        background-color: #f8f9fa;
+    }
+
+    /* İki kolonlu input grubu */
+    .edit-input-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 28px;
+    }
+
+    .edit-input-col {
+        flex: 1;
+    }
+
+    /* Validation mesajları */
+    .text-danger {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 6px;
+        display: block;
+        font-weight: 500;
+    }
+
+    .field-validation-error {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 6px;
+        display: block;
+        font-weight: 500;
+    }
+
+    .validation-summary-errors {
+        background: #fee;
+        border: 1px solid #fcc;
+        color: #c00;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 24px;
+    }
+
+        .validation-summary-errors ul {
+            margin: 5px 0 0 0;
+            padding-left: 20px;
+        }
+
+    /* Bilgi kutusu */
+    .edit-info-box {
+        background: #e7f3ff;
+        border-left: 4px solid #2196F3;
+        padding: 14px 18px;
+        border-radius: 6px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+        .edit-info-box i {
+            color: #2196F3;
+            font-size: 18px;
+        }
+
+        .edit-info-box p {
+            margin: 0;
+            color: #495057;
+            font-size: 14px;
+        }
+
+    /* Mevcut bilgi kartı */
+    .current-info-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+        .current-info-card h4 {
+            margin: 0 0 15px 0;
+            font-size: 16px;
+            font-weight: 600;
+            opacity: 0.95;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+    .current-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .current-info-item {
+        background: rgba(255,255,255,0.15);
+        padding: 12px;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+    }
+
+    .current-info-label {
+        font-size: 11px;
+        opacity: 0.9;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .current-info-value {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    /* Divider */
+    .edit-form-divider {
+        height: 1px;
+        background: linear-gradient(to right, transparent, #e9ecef, transparent);
+        margin: 35px 0;
+    }
+
+    /* Buton stilleri */
+    .edit-btn-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 30px;
+        padding-top: 25px;
+        border-top: 2px solid #e9ecef;
+    }
+
+    .edit-action-btn {
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+    }
+
+    .edit-btn-cancel {
+        background: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #e9ecef;
+    }
+
+        .edit-btn-cancel:hover {
+            background: #e9ecef;
+            color: #495057;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-decoration: none;
+        }
+
+    .edit-btn-submit {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+        .edit-btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .edit-form-body {
+            padding: 25px;
+        }
+
+        .edit-input-row {
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .edit-btn-actions {
+            flex-direction: column;
+        }
+
+        .edit-action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .edit-form-header {
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .current-info-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="edit-page-wrapper">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <div class="edit-form-card">
+
+                <!-- Form Başlığı -->
+                <div class="edit-form-header">
+                    <div class="edit-header-left">
+                        <div class="edit-icon">
+                            <i class="fa fa-edit"></i>
+                        </div>
+                        <div>
+                            <h3>Ürün Düzenleme</h3>
+                            <p>@Model.UrunAdi ürününü düzenleyebilirsiniz</p>
+                        </div>
+                    </div>
+                    <div class="current-product-badge">
+                        ID: #@Model.UrunId
+                    </div>
+                </div>
+
+                <!-- Form İçeriği -->
+                <div class="edit-form-body">
+
+                    <!-- Mevcut Bilgiler -->
+                    <div class="current-info-card">
+                        <h4>
+                            <i class="fa fa-info-circle"></i>
+                            Mevcut Bilgiler
+                        </h4>
+                        <div class="current-info-grid">
+                            <div class="current-info-item">
+                                <div class="current-info-label">Kategori</div>
+                                <div class="current-info-value">@Model.Kategori.KategoriAdi</div>
+                            </div>
+                            <div class="current-info-item">
+                                <div class="current-info-label">Stok</div>
+                                <div class="current-info-value">@Model.Stok Adet</div>
+                            </div>
+                            <div class="current-info-item">
+                                <div class="current-info-label">Fiyat</div>
+                                <div class="current-info-value">@Model.Fiyat.ToString("N2") ₺</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bilgilendirme Kutusu -->
+                    <div class="edit-info-box">
+                        <i class="fa fa-lightbulb"></i>
+                        <p>Değiştirmek istediğiniz alanları güncelleyin ve kaydedin.</p>
+                    </div>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.UrunId)
+
+                        @Html.ValidationSummary(true, "", new { @class = "validation-summary-errors" })
+
+                        <!-- Kategori Seçimi -->
+                        <div class="edit-form-group">
+                            <label>
+                                <i class="fa fa-tags"></i>
+                                Kategori
+                            </label>
+                            @Html.DropDownList("KategoriId", null, htmlAttributes: new { @class = "edit-input" })
+                            @Html.ValidationMessageFor(model => model.KategoriId, "", new { @class = "text-danger" })
+                        </div>
+
+                        <!-- Ürün Adı -->
+                        <div class="edit-form-group">
+                            <label>
+                                <i class="fa fa-box"></i>
+                                Ürün Adı
+                            </label>
+                            @Html.EditorFor(model => model.UrunAdi, new
+                            {
+                                htmlAttributes = new
+                                {
+                                    @class = "edit-input",
+                                    placeholder = "Ürün adını giriniz"
+                                }
+                            })
+                            @Html.ValidationMessageFor(model => model.UrunAdi, "", new { @class = "text-danger" })
+                        </div>
+
+                        <!-- Stok ve Fiyat (İki Kolon) -->
+                        <div class="edit-input-row">
+                            <div class="edit-input-col">
+                                <div class="edit-form-group">
+                                    <label>
+                                        <i class="fa fa-cubes"></i>
+                                        Stok Adedi
+                                    </label>
+                                    @Html.EditorFor(model => model.Stok, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "edit-input",
+                                            type = "number",
+                                            min = "0",
+                                            placeholder = "0"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.Stok, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="edit-input-col">
+                                <div class="edit-form-group">
+                                    <label>
+                                        <i class="fa fa-lira-sign"></i>
+                                        Birim Fiyat (₺)
+                                    </label>
+                                    @Html.EditorFor(model => model.Fiyat, new
+                                    {
+                                        htmlAttributes = new
+                                        {
+                                            @class = "edit-input",
+                                            type = "number",
+                                            step = "0.01",
+                                            min = "0",
+                                            placeholder = "0.00"
+                                        }
+                                    })
+                                    @Html.ValidationMessageFor(model => model.Fiyat, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="edit-form-divider"></div>
+
+                        <!-- Aksiyon Butonları -->
+                        <div class="edit-btn-actions">
+                            <a href="@Url.Action("Index")" class="edit-action-btn edit-btn-cancel">
+                                <i class="fa fa-times"></i>
+                                İptal Et
+                            </a>
+                            <button type="submit" class="edit-action-btn edit-btn-submit">
+                                <i class="fa fa-save"></i>
+                                Değişiklikleri Kaydet
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

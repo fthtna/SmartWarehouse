@@ -1,0 +1,164 @@
+
+
+--- 11.12.2025 01:32:48 ---
+System.AggregateException: Bir veya daha fazla hata oluştu. ---> System.DllNotFoundException: DLL 'FastTreeNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.C_Sumup_double(Int32 numBits, Byte* pData, Int32* pIndices, Double* pSampleOutputs, Double* pSampleOutputWeights, Double* pSumTargetsByBin, Double* pSumTargets2ByBin, Int32* pCountByBin, Int32 totalCount, Double totalSampleOutputs, Double totalSampleOutputWeights)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.SumupCPlusPlusDense(SumupInputData input, FeatureHistogram histogram, Byte* data, Int32 numBits)
+   konum: Microsoft.ML.Trainers.FastTree.Dense8BitIntArray.SumupNative(SumupInputData input, FeatureHistogram histogram)
+   konum: Microsoft.ML.Trainers.FastTree.FeatureHistogram.SumupWeighted(Int32 numDocsInLeaf, Double sumTargets, Double sumWeights, Double[] outputs, Double[] weights, Int32[] docIndices)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.Sumup(SufficientStatsBase stats, Int32 featureMin, LeafSplitCandidates candidates)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FindBestThresholdForFlockThreadWorker(Int32 flock)
+   konum: System.Threading.Tasks.Task.Execute()
+   --- İç özel durum yığını izlemesinin sonu ---
+   konum: System.Threading.Tasks.Task.FastWaitAll(Task[] tasks)
+   konum: System.Threading.Tasks.Parallel.Invoke(ParallelOptions parallelOptions, Action[] actions)
+   konum: Microsoft.ML.Trainers.FastTree.ThreadTaskManager.ThreadTask.RunTask()
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FindBestSplitOfRoot(Double[] targets)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FitTargets(IChannel ch, Boolean[] activeFeatures, Double[] targets)
+   konum: Microsoft.ML.Trainers.FastTree.GradientDescent.TrainingIteration(IChannel ch, Boolean[] activeFeatures)
+   konum: Microsoft.ML.Trainers.FastTree.FastTreeTrainerBase`3.Train(IChannel ch)
+   konum: Microsoft.ML.Trainers.FastTree.FastTreeRegressionTrainer.Train(IChannel ch)
+   konum: Microsoft.ML.Trainers.FastTree.FastTreeTrainerBase`3.TrainCore(IChannel ch)
+   konum: Microsoft.ML.Trainers.FastTree.FastTreeRegressionTrainer.TrainModelCore(TrainContext context)
+   konum: Microsoft.ML.Trainers.TrainerEstimatorBase`2.TrainTransformer(IDataView trainSet, IDataView validationSet, IPredictor initPredictor)
+   konum: Microsoft.ML.Data.EstimatorChain`1.Fit(IDataView input)
+   konum: SmartWarehouse.Services.MLService.EgitVeKaydet() C:\Users\yılmaz\source\repos\SmartWarehouse\SmartWarehouse\Services\MLService.cs içinde: satır 41
+   konum: SmartWarehouse.Controllers.HomeController.EgitModel() C:\Users\yılmaz\source\repos\SmartWarehouse\SmartWarehouse\Controllers\HomeController.cs içinde: satır 111
+---> (İç Özel Durum #0) System.DllNotFoundException: DLL 'FastTreeNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.C_Sumup_double(Int32 numBits, Byte* pData, Int32* pIndices, Double* pSampleOutputs, Double* pSampleOutputWeights, Double* pSumTargetsByBin, Double* pSumTargets2ByBin, Int32* pCountByBin, Int32 totalCount, Double totalSampleOutputs, Double totalSampleOutputWeights)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.SumupCPlusPlusDense(SumupInputData input, FeatureHistogram histogram, Byte* data, Int32 numBits)
+   konum: Microsoft.ML.Trainers.FastTree.Dense8BitIntArray.SumupNative(SumupInputData input, FeatureHistogram histogram)
+   konum: Microsoft.ML.Trainers.FastTree.FeatureHistogram.SumupWeighted(Int32 numDocsInLeaf, Double sumTargets, Double sumWeights, Double[] outputs, Double[] weights, Int32[] docIndices)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.Sumup(SufficientStatsBase stats, Int32 featureMin, LeafSplitCandidates candidates)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FindBestThresholdForFlockThreadWorker(Int32 flock)
+   konum: System.Threading.Tasks.Task.Execute()<---
+
+---> (İç Özel Durum #1) System.DllNotFoundException: DLL 'FastTreeNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.C_Sumup_double(Int32 numBits, Byte* pData, Int32* pIndices, Double* pSampleOutputs, Double* pSampleOutputWeights, Double* pSumTargetsByBin, Double* pSumTargets2ByBin, Int32* pCountByBin, Int32 totalCount, Double totalSampleOutputs, Double totalSampleOutputWeights)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.SumupCPlusPlusDense(SumupInputData input, FeatureHistogram histogram, Byte* data, Int32 numBits)
+   konum: Microsoft.ML.Trainers.FastTree.Dense4BitIntArray.SumupNative(SumupInputData input, FeatureHistogram histogram)
+   konum: Microsoft.ML.Trainers.FastTree.FeatureHistogram.SumupWeighted(Int32 numDocsInLeaf, Double sumTargets, Double sumWeights, Double[] outputs, Double[] weights, Int32[] docIndices)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.Sumup(SufficientStatsBase stats, Int32 featureMin, LeafSplitCandidates candidates)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FindBestThresholdForFlockThreadWorker(Int32 flock)
+   konum: System.Threading.Tasks.Task.Execute()<---
+
+---> (İç Özel Durum #2) System.DllNotFoundException: DLL 'FastTreeNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.C_Sumup_double(Int32 numBits, Byte* pData, Int32* pIndices, Double* pSampleOutputs, Double* pSampleOutputWeights, Double* pSumTargetsByBin, Double* pSumTargets2ByBin, Int32* pCountByBin, Int32 totalCount, Double totalSampleOutputs, Double totalSampleOutputWeights)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.SumupCPlusPlusDense(SumupInputData input, FeatureHistogram histogram, Byte* data, Int32 numBits)
+   konum: Microsoft.ML.Trainers.FastTree.Dense4BitIntArray.SumupNative(SumupInputData input, FeatureHistogram histogram)
+   konum: Microsoft.ML.Trainers.FastTree.FeatureHistogram.SumupWeighted(Int32 numDocsInLeaf, Double sumTargets, Double sumWeights, Double[] outputs, Double[] weights, Int32[] docIndices)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.Sumup(SufficientStatsBase stats, Int32 featureMin, LeafSplitCandidates candidates)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FindBestThresholdForFlockThreadWorker(Int32 flock)
+   konum: System.Threading.Tasks.Task.Execute()<---
+
+---> (İç Özel Durum #3) System.DllNotFoundException: DLL 'FastTreeNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.C_Sumup_double(Int32 numBits, Byte* pData, Int32* pIndices, Double* pSampleOutputs, Double* pSampleOutputWeights, Double* pSumTargetsByBin, Double* pSumTargets2ByBin, Int32* pCountByBin, Int32 totalCount, Double totalSampleOutputs, Double totalSampleOutputWeights)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.SumupCPlusPlusDense(SumupInputData input, FeatureHistogram histogram, Byte* data, Int32 numBits)
+   konum: Microsoft.ML.Trainers.FastTree.Dense4BitIntArray.SumupNative(SumupInputData input, FeatureHistogram histogram)
+   konum: Microsoft.ML.Trainers.FastTree.FeatureHistogram.SumupWeighted(Int32 numDocsInLeaf, Double sumTargets, Double sumWeights, Double[] outputs, Double[] weights, Int32[] docIndices)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.Sumup(SufficientStatsBase stats, Int32 featureMin, LeafSplitCandidates candidates)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FindBestThresholdForFlockThreadWorker(Int32 flock)
+   konum: System.Threading.Tasks.Task.Execute()<---
+
+
+
+--- 11.12.2025 01:35:23 ---
+System.AggregateException: Bir veya daha fazla hata oluştu. ---> System.DllNotFoundException: DLL 'FastTreeNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.C_Sumup_double(Int32 numBits, Byte* pData, Int32* pIndices, Double* pSampleOutputs, Double* pSampleOutputWeights, Double* pSumTargetsByBin, Double* pSumTargets2ByBin, Int32* pCountByBin, Int32 totalCount, Double totalSampleOutputs, Double totalSampleOutputWeights)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.SumupCPlusPlusDense(SumupInputData input, FeatureHistogram histogram, Byte* data, Int32 numBits)
+   konum: Microsoft.ML.Trainers.FastTree.Dense8BitIntArray.SumupNative(SumupInputData input, FeatureHistogram histogram)
+   konum: Microsoft.ML.Trainers.FastTree.FeatureHistogram.SumupWeighted(Int32 numDocsInLeaf, Double sumTargets, Double sumWeights, Double[] outputs, Double[] weights, Int32[] docIndices)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.Sumup(SufficientStatsBase stats, Int32 featureMin, LeafSplitCandidates candidates)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FindBestThresholdForFlockThreadWorker(Int32 flock)
+   konum: System.Threading.Tasks.Task.Execute()
+   --- İç özel durum yığını izlemesinin sonu ---
+   konum: System.Threading.Tasks.Task.FastWaitAll(Task[] tasks)
+   konum: System.Threading.Tasks.Parallel.Invoke(ParallelOptions parallelOptions, Action[] actions)
+   konum: Microsoft.ML.Trainers.FastTree.ThreadTaskManager.ThreadTask.RunTask()
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FindBestSplitOfRoot(Double[] targets)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FitTargets(IChannel ch, Boolean[] activeFeatures, Double[] targets)
+   konum: Microsoft.ML.Trainers.FastTree.GradientDescent.TrainingIteration(IChannel ch, Boolean[] activeFeatures)
+   konum: Microsoft.ML.Trainers.FastTree.FastTreeTrainerBase`3.Train(IChannel ch)
+   konum: Microsoft.ML.Trainers.FastTree.FastTreeRegressionTrainer.Train(IChannel ch)
+   konum: Microsoft.ML.Trainers.FastTree.FastTreeTrainerBase`3.TrainCore(IChannel ch)
+   konum: Microsoft.ML.Trainers.FastTree.FastTreeRegressionTrainer.TrainModelCore(TrainContext context)
+   konum: Microsoft.ML.Trainers.TrainerEstimatorBase`2.TrainTransformer(IDataView trainSet, IDataView validationSet, IPredictor initPredictor)
+   konum: Microsoft.ML.Data.EstimatorChain`1.Fit(IDataView input)
+   konum: SmartWarehouse.Services.MLService.EgitVeKaydet() C:\Users\yılmaz\source\repos\SmartWarehouse\SmartWarehouse\Services\MLService.cs içinde: satır 41
+   konum: SmartWarehouse.Controllers.HomeController.EgitModel() C:\Users\yılmaz\source\repos\SmartWarehouse\SmartWarehouse\Controllers\HomeController.cs içinde: satır 111
+---> (İç Özel Durum #0) System.DllNotFoundException: DLL 'FastTreeNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.C_Sumup_double(Int32 numBits, Byte* pData, Int32* pIndices, Double* pSampleOutputs, Double* pSampleOutputWeights, Double* pSumTargetsByBin, Double* pSumTargets2ByBin, Int32* pCountByBin, Int32 totalCount, Double totalSampleOutputs, Double totalSampleOutputWeights)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.SumupCPlusPlusDense(SumupInputData input, FeatureHistogram histogram, Byte* data, Int32 numBits)
+   konum: Microsoft.ML.Trainers.FastTree.Dense8BitIntArray.SumupNative(SumupInputData input, FeatureHistogram histogram)
+   konum: Microsoft.ML.Trainers.FastTree.FeatureHistogram.SumupWeighted(Int32 numDocsInLeaf, Double sumTargets, Double sumWeights, Double[] outputs, Double[] weights, Int32[] docIndices)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.Sumup(SufficientStatsBase stats, Int32 featureMin, LeafSplitCandidates candidates)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FindBestThresholdForFlockThreadWorker(Int32 flock)
+   konum: System.Threading.Tasks.Task.Execute()<---
+
+---> (İç Özel Durum #1) System.DllNotFoundException: DLL 'FastTreeNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.C_Sumup_double(Int32 numBits, Byte* pData, Int32* pIndices, Double* pSampleOutputs, Double* pSampleOutputWeights, Double* pSumTargetsByBin, Double* pSumTargets2ByBin, Int32* pCountByBin, Int32 totalCount, Double totalSampleOutputs, Double totalSampleOutputWeights)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.SumupCPlusPlusDense(SumupInputData input, FeatureHistogram histogram, Byte* data, Int32 numBits)
+   konum: Microsoft.ML.Trainers.FastTree.Dense4BitIntArray.SumupNative(SumupInputData input, FeatureHistogram histogram)
+   konum: Microsoft.ML.Trainers.FastTree.FeatureHistogram.SumupWeighted(Int32 numDocsInLeaf, Double sumTargets, Double sumWeights, Double[] outputs, Double[] weights, Int32[] docIndices)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.Sumup(SufficientStatsBase stats, Int32 featureMin, LeafSplitCandidates candidates)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FindBestThresholdForFlockThreadWorker(Int32 flock)
+   konum: System.Threading.Tasks.Task.Execute()<---
+
+---> (İç Özel Durum #2) System.DllNotFoundException: DLL 'FastTreeNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.C_Sumup_double(Int32 numBits, Byte* pData, Int32* pIndices, Double* pSampleOutputs, Double* pSampleOutputWeights, Double* pSumTargetsByBin, Double* pSumTargets2ByBin, Int32* pCountByBin, Int32 totalCount, Double totalSampleOutputs, Double totalSampleOutputWeights)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.SumupCPlusPlusDense(SumupInputData input, FeatureHistogram histogram, Byte* data, Int32 numBits)
+   konum: Microsoft.ML.Trainers.FastTree.Dense4BitIntArray.SumupNative(SumupInputData input, FeatureHistogram histogram)
+   konum: Microsoft.ML.Trainers.FastTree.FeatureHistogram.SumupWeighted(Int32 numDocsInLeaf, Double sumTargets, Double sumWeights, Double[] outputs, Double[] weights, Int32[] docIndices)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.Sumup(SufficientStatsBase stats, Int32 featureMin, LeafSplitCandidates candidates)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FindBestThresholdForFlockThreadWorker(Int32 flock)
+   konum: System.Threading.Tasks.Task.Execute()<---
+
+---> (İç Özel Durum #3) System.DllNotFoundException: DLL 'FastTreeNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.C_Sumup_double(Int32 numBits, Byte* pData, Int32* pIndices, Double* pSampleOutputs, Double* pSampleOutputWeights, Double* pSumTargetsByBin, Double* pSumTargets2ByBin, Int32* pCountByBin, Int32 totalCount, Double totalSampleOutputs, Double totalSampleOutputWeights)
+   konum: Microsoft.ML.Trainers.FastTree.DenseIntArray.SumupCPlusPlusDense(SumupInputData input, FeatureHistogram histogram, Byte* data, Int32 numBits)
+   konum: Microsoft.ML.Trainers.FastTree.Dense4BitIntArray.SumupNative(SumupInputData input, FeatureHistogram histogram)
+   konum: Microsoft.ML.Trainers.FastTree.FeatureHistogram.SumupWeighted(Int32 numDocsInLeaf, Double sumTargets, Double sumWeights, Double[] outputs, Double[] weights, Int32[] docIndices)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.Sumup(SufficientStatsBase stats, Int32 featureMin, LeafSplitCandidates candidates)
+   konum: Microsoft.ML.Trainers.FastTree.LeastSquaresRegressionTreeLearner.FindBestThresholdForFlockThreadWorker(Int32 flock)
+   konum: System.Threading.Tasks.Task.Execute()<---
+
+
+
+--- 11.12.2025 01:40:00 ---
+System.AggregateException: Bir veya daha fazla hata oluştu. ---> System.DllNotFoundException: DLL 'CpuMathNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Internal.CpuMath.Thunk.DotSU(Single* pa, Single* pb, Int32* pi, Int32 c)
+   konum: Microsoft.ML.Numeric.VectorUtils.DotProduct(VBuffer`1& a, VBuffer`1& b)
+   konum: Microsoft.ML.Trainers.SdcaTrainerBase`3.TrainWithoutLock(IProgressChannelProvider progress, Factory cursorFactory, Random rand, IdToIdxLookup idToIdx, Int32 numThreads, DualsTableBase duals, Single[] biasReg, Single[] invariants, Single lambdaNInv, VBuffer`1[] weights, Single[] biasUnreg, VBuffer`1[] l1IntermediateWeights, Single[] l1IntermediateBias, Single[] featureNormSquared)
+   konum: Microsoft.ML.Trainers.SdcaTrainerBase`3.<>c__DisplayClass13_2.<TrainCore>b__5(Int32 j)
+   konum: System.Threading.Tasks.Parallel.<>c__DisplayClass17_0`1.<ForWorker>b__1()
+   konum: System.Threading.Tasks.Task.InnerInvokeWithArg(Task childTask)
+   konum: System.Threading.Tasks.Task.<>c__DisplayClass176_0.<ExecuteSelfReplicating>b__0(Object <p0>)
+   --- İç özel durum yığını izlemesinin sonu ---
+   konum: System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   konum: System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   konum: System.Threading.Tasks.Parallel.ForWorker[TLocal](Int32 fromInclusive, Int32 toExclusive, ParallelOptions parallelOptions, Action`1 body, Action`2 bodyWithState, Func`4 bodyWithLocal, Func`1 localInit, Action`1 localFinally)
+   konum: System.Threading.Tasks.Parallel.For(Int32 fromInclusive, Int32 toExclusive, ParallelOptions parallelOptions, Action`1 body)
+   konum: Microsoft.ML.Trainers.SdcaTrainerBase`3.TrainCore(IChannel ch, RoleMappedData data, LinearModelParameters predictor, Int32 weightSetCount)
+   konum: Microsoft.ML.Trainers.StochasticTrainerBase`2.TrainModelCore(TrainContext context)
+   konum: Microsoft.ML.Trainers.TrainerEstimatorBase`2.TrainTransformer(IDataView trainSet, IDataView validationSet, IPredictor initPredictor)
+   konum: Microsoft.ML.Data.EstimatorChain`1.Fit(IDataView input)
+   konum: SmartWarehouse.Services.MLService.EgitVeKaydet() C:\Users\yılmaz\source\repos\SmartWarehouse\SmartWarehouse\Services\MLService.cs içinde: satır 41
+   konum: SmartWarehouse.Controllers.HomeController.EgitModel() C:\Users\yılmaz\source\repos\SmartWarehouse\SmartWarehouse\Controllers\HomeController.cs içinde: satır 111
+---> (İç Özel Durum #0) System.DllNotFoundException: DLL 'CpuMathNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Internal.CpuMath.Thunk.DotSU(Single* pa, Single* pb, Int32* pi, Int32 c)
+   konum: Microsoft.ML.Numeric.VectorUtils.DotProduct(VBuffer`1& a, VBuffer`1& b)
+   konum: Microsoft.ML.Trainers.SdcaTrainerBase`3.TrainWithoutLock(IProgressChannelProvider progress, Factory cursorFactory, Random rand, IdToIdxLookup idToIdx, Int32 numThreads, DualsTableBase duals, Single[] biasReg, Single[] invariants, Single lambdaNInv, VBuffer`1[] weights, Single[] biasUnreg, VBuffer`1[] l1IntermediateWeights, Single[] l1IntermediateBias, Single[] featureNormSquared)
+   konum: Microsoft.ML.Trainers.SdcaTrainerBase`3.<>c__DisplayClass13_2.<TrainCore>b__5(Int32 j)
+   konum: System.Threading.Tasks.Parallel.<>c__DisplayClass17_0`1.<ForWorker>b__1()
+   konum: System.Threading.Tasks.Task.InnerInvokeWithArg(Task childTask)
+   konum: System.Threading.Tasks.Task.<>c__DisplayClass176_0.<ExecuteSelfReplicating>b__0(Object <p0>)<---
+
+---> (İç Özel Durum #1) System.DllNotFoundException: DLL 'CpuMathNative' yüklenemedi: Belirtilen modül bulunamadı. (HRESULT özel durum döndürdü: 0x8007007E)
+   konum: Microsoft.ML.Internal.CpuMath.Thunk.DotSU(Single* pa, Single* pb, Int32* pi, Int32 c)
+   konum: Microsoft.ML.Numeric.VectorUtils.DotProduct(VBuffer`1& a, VBuffer`1& b)
+   konum: Microsoft.ML.Trainers.SdcaTrainerBase`3.TrainWithoutLock(IProgressChannelProvider progress, Factory cursorFactory, Random rand, IdToIdxLookup idToIdx, Int32 numThreads, DualsTableBase duals, Single[] biasReg, Single[] invariants, Single lambdaNInv, VBuffer`1[] weights, Single[] biasUnreg, VBuffer`1[] l1IntermediateWeights, Single[] l1IntermediateBias, Single[] featureNormSquared)
+   konum: Microsoft.ML.Trainers.SdcaTrainerBase`3.<>c__DisplayClass13_2.<TrainCore>b__5(Int32 j)
+   konum: System.Threading.Tasks.Parallel.<>c__DisplayClass17_0`1.<ForWorker>b__1()
+   konum: System.Threading.Tasks.Task.InnerInvokeWithArg(Task childTask)
+   konum: System.Threading.Tasks.Task.<>c__DisplayClass176_0.<ExecuteSelfReplicating>b__0(Object <p0>)<---
+

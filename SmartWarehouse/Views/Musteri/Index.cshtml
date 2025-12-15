@@ -1,0 +1,324 @@
+﻿@model IEnumerable<SmartWarehouse.Models.Musteri>
+
+@{
+    ViewBag.Title = "Müşteri Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .content-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 25px 30px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .content-header h2 {
+            color: #fff;
+            margin: 0;
+            font-weight: 600;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+    .btn-add-new {
+        background: #fff;
+        color: #667eea;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .btn-add-new:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            color: #667eea;
+            text-decoration: none;
+        }
+
+    .table-container {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        overflow: hidden;
+    }
+
+    .modern-table {
+        margin: 0;
+        width: 100%;
+    }
+
+        .modern-table thead {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-bottom: 2px solid #dee2e6;
+        }
+
+            .modern-table thead th {
+                color: #495057;
+                font-weight: 600;
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                padding: 16px 12px;
+                border: none;
+                vertical-align: middle;
+            }
+
+        .modern-table tbody td {
+            padding: 14px 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f3f5;
+            font-size: 14px;
+            color: #495057;
+        }
+
+        .modern-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+            .modern-table tbody tr:hover {
+                background-color: #f8f9fa;
+                transform: scale(1.001);
+            }
+
+            .modern-table tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+    .id-badge {
+        display: inline-block;
+        background: #e9ecef;
+        color: #6c757d;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .customer-name {
+        font-weight: 600;
+        color: #2d3561;
+        font-size: 15px;
+    }
+
+    .phone-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #e7f3ff;
+        color: #0056b3;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .action-btn {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        border-radius: 6px;
+        margin: 0 2px;
+        transition: all 0.2s ease;
+        border: 1px solid #e9ecef;
+        background: #fff;
+        text-decoration: none;
+    }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+    .action-btn-edit:hover {
+        background: #007bff;
+        border-color: #007bff;
+    }
+
+        .action-btn-edit:hover i {
+            color: #fff !important;
+        }
+
+    .action-btn-view:hover {
+        background: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+        .action-btn-view:hover i {
+            color: #fff !important;
+        }
+
+    .action-btn-delete:hover {
+        background: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .action-btn-delete:hover i {
+            color: #fff !important;
+        }
+
+    .table-footer {
+        background: #f8f9fa;
+        padding: 15px 20px;
+        border-radius: 0 0 8px 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .table-info {
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+        .table-info strong {
+            color: #495057;
+            font-weight: 600;
+        }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .empty-state-icon {
+        font-size: 64px;
+        color: #dee2e6;
+        margin-bottom: 20px;
+    }
+
+    .empty-state-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 10px;
+    }
+
+    .empty-state-text {
+        color: #6c757d;
+        margin-bottom: 20px;
+    }
+
+    @@media (max-width: 768px) {
+        .content-header {
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="content-header">
+            <h2>
+                <i class="fas fa-users"></i>
+                Müşteri Yönetimi
+            </h2>
+            <a href="@Url.Action("Create")" class="btn-add-new">
+                <i class="fas fa-plus"></i> Yeni Müşteri Ekle
+            </a>
+        </div>
+
+        <div class="table-container">
+            @if (Model != null && Model.Any())
+            {
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 80px;">ID</th>
+                            <th>Müşteri Adı</th>
+                            <th>Soyadı</th>
+                            <th>Telefon</th>
+                            <th class="text-center" style="width: 140px;">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    <span class="id-badge">#@item.MusteriId</span>
+                                </td>
+
+                                <td>
+                                    <span class="customer-name">@item.MusteriAdi</span>
+                                </td>
+
+                                <td>
+                                    <span class="customer-name">@item.MusteriSoyadi</span>
+                                </td>
+
+                                <td>
+                                    <span class="phone-badge">
+                                        <i class="fas fa-phone"></i>
+                                        @item.Telefon
+                                    </span>
+                                </td>
+
+                                <td class="text-center">
+                                    <a href="@Url.Action("Edit", new { id=item.MusteriId })"
+                                       class="action-btn action-btn-edit"
+                                       title="Düzenle">
+                                        <i class="fas fa-edit text-primary"></i>
+                                    </a>
+                                    <a href="@Url.Action("Details", new { id=item.MusteriId })"
+                                       class="action-btn action-btn-view"
+                                       title="Detaylar">
+                                        <i class="fas fa-eye text-info"></i>
+                                    </a>
+                                    <a href="@Url.Action("Delete", new { id=item.MusteriId })"
+                                       class="action-btn action-btn-delete"
+                                       title="Sil"
+                                       onclick="return confirm('Bu müşteriyi silmek istediğinizden emin misiniz?');">
+                                        <i class="fas fa-trash text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="table-footer">
+                    <div class="table-info">
+                        Toplam <strong>@Model.Count()</strong> müşteri listeleniyor
+                    </div>
+                    <div class="table-info">
+                        <i class="fas fa-info-circle"></i> Müşteri bilgileri güvenli şekilde saklanır
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="empty-state-title">Henüz Müşteri Yok</h3>
+                    <p class="empty-state-text">Satış yapabilmek için müşteri eklemelisiniz</p>
+                    <a href="@Url.Action("Create")" class="btn-add-new">
+                        <i class="fas fa-plus"></i> İlk Müşteriyi Ekle
+                    </a>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>

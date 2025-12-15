@@ -1,0 +1,523 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Smart Warehouse</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.1/cosmo/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+        }
+
+        /* --- MODERN SIDEBAR --- */
+        .sidebar {
+            height: 100vh;
+            width: 280px;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            background: linear-gradient(180deg, #1a1f3a 0%, #2d3561 100%);
+            overflow-x: hidden;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+            /* Scrollbar styling */
+            .sidebar::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .sidebar::-webkit-scrollbar-track {
+                background: rgba(255,255,255,0.05);
+            }
+
+            .sidebar::-webkit-scrollbar-thumb {
+                background: rgba(255,255,255,0.2);
+                border-radius: 10px;
+            }
+
+        /* Logo/Header */
+        .sidebar-header {
+            padding: 25px 20px;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 10px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .logo-text {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* User Panel */
+        .user-panel {
+            padding: 20px;
+            margin: 10px 15px 20px 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            border: 3px solid rgba(255,255,255,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+            .user-avatar i {
+                color: #fff;
+                font-size: 26px;
+            }
+
+        .user-info {
+            text-align: center;
+        }
+
+        .user-name {
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        .user-status {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #2ecc71;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @@keyframes pulse-dot {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+            }
+
+            50% {
+                box-shadow: 0 0 0 6px rgba(46, 204, 113, 0);
+            }
+        }
+
+        /* Menu Items */
+        .sidebar-menu {
+            padding: 0 10px;
+        }
+
+        .menu-section-title {
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 15px 20px 8px;
+            font-weight: 600;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            margin: 4px 0;
+            text-decoration: none;
+            color: rgba(255,255,255,0.8);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 15px;
+        }
+
+            .sidebar a::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 4px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                transform: scaleY(0);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar a:hover {
+                background: rgba(255,255,255,0.1);
+                color: #fff;
+                transform: translateX(5px);
+            }
+
+                .sidebar a:hover::before {
+                    transform: scaleY(1);
+                }
+
+            .sidebar a.active {
+                background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+                color: #fff;
+                border-left: 4px solid #667eea;
+            }
+
+            .sidebar a i {
+                width: 24px;
+                margin-right: 12px;
+                font-size: 18px;
+                text-align: center;
+            }
+
+        .menu-text {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            margin: 20px 10px;
+            background: rgba(231, 76, 60, 0.2) !important;
+            color: #fff !important;
+            border: 1px solid rgba(231, 76, 60, 0.3) !important;
+            font-weight: 600;
+        }
+
+            .logout-btn:hover {
+                background: rgba(231, 76, 60, 0.4) !important;
+                border-color: rgba(231, 76, 60, 0.5) !important;
+                transform: translateX(0) !important;
+            }
+
+        .login-btn {
+            margin: 20px 10px;
+            background: rgba(102, 126, 234, 0.2) !important;
+            color: #fff !important;
+            border: 1px solid rgba(102, 126, 234, 0.3) !important;
+            font-weight: 600;
+        }
+
+            .login-btn:hover {
+                background: rgba(102, 126, 234, 0.4) !important;
+                border-color: rgba(102, 126, 234, 0.5) !important;
+                transform: translateX(0) !important;
+            }
+
+        /* --- MAIN CONTENT AREA --- */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            transition: all 0.3s ease;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: #fff;
+            padding: 20px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3561;
+            margin: 0;
+        }
+
+        .breadcrumb-custom {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        /* Content Box */
+        .content-wrapper {
+            padding: 0 40px 40px;
+        }
+
+        .content-box {
+            background: #fff;
+            padding: 0;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        /* Footer */
+        .main-footer {
+            background: #fff;
+            padding: 20px 40px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+            margin-top: 40px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        /* Responsive */
+        @@media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                overflow: hidden;
+            }
+
+                .sidebar.mobile-open {
+                    width: 280px;
+                }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .top-bar {
+                padding: 15px 20px;
+            }
+
+            .content-wrapper {
+                padding: 0 20px 20px;
+            }
+
+            .page-title {
+                font-size: 20px;
+            }
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        @@media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+
+        <!-- Logo -->
+        <div class="sidebar-header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <div class="logo-text">Smart Warehouse</div>
+            </div>
+        </div>
+
+        <!-- User Panel -->
+        <div class="user-panel">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            @using Microsoft.AspNet.Identity
+            @using SmartWarehouse.Models
+            @{
+                var gorunenIsim = "Misafir";
+                if (Request.IsAuthenticated)
+                {
+                    var db = new ApplicationDbContext();
+                    var currentUserId = User.Identity.GetUserId();
+                    var user = db.Users.Find(currentUserId);
+                    if (user != null && !string.IsNullOrEmpty(user.Ad))
+                    {
+                        gorunenIsim = user.Ad + " " + user.Soyad;
+                    }
+                    else
+                    {
+                        gorunenIsim = User.Identity.GetUserName();
+                    }
+                }
+            }
+            <div class="user-info">
+                <div class="user-name">@gorunenIsim</div>
+                <div class="user-status">
+                    <span class="status-dot"></span>
+                    Çevrimiçi
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu -->
+        <div class="sidebar-menu">
+            <div class="menu-section-title">Ana Menü</div>
+
+            <a href="@Url.Action("Index", "Home")" class="menu-item">
+                <i class="fas fa-chart-line"></i>
+                <span class="menu-text">Dashboard</span>
+            </a>
+
+            <a href="@Url.Action("Index", "Satis")" class="menu-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="menu-text">Satış Yönetimi</span>
+            </a>
+
+            <a href="@Url.Action("Index", "Urun")" class="menu-item">
+                <i class="fas fa-box-open"></i>
+                <span class="menu-text">Ürün Yönetimi</span>
+            </a>
+
+            <a href="@Url.Action("Index", "Musteri")" class="menu-item">
+                <i class="fas fa-users"></i>
+                <span class="menu-text">Müşteri Yönetimi</span>
+            </a>
+
+            <a href="@Url.Action("Index", "Kategori")" class="menu-item">
+                <i class="fas fa-tags"></i>
+                <span class="menu-text">Kategoriler</span>
+            </a>
+
+            <div class="menu-section-title" style="margin-top: 20px;">Hesap</div>
+
+            @if (Request.IsAuthenticated)
+            {
+                <a href="@Url.Action("Index", "Manage")" class="menu-item">
+                    <i class="fas fa-user-cog"></i>
+                    <span class="menu-text">Profil Ayarları</span>
+                </a>
+
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:document.getElementById('logoutForm').submit()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="menu-text">Çıkış Yap</span>
+                    </a>
+                }
+            }
+            else
+            {
+                <a href="@Url.Action("Login", "Account")" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span class="menu-text">Giriş Yap</span>
+                </a>
+            }
+        </div>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <div class="content-box">
+                @RenderBody()
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <p>&copy; @DateTime.Now.Year Smart Warehouse Yönetim Sistemi - Tüm hakları saklıdır.</p>
+        </footer>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('mobile-open');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            var sidebar = document.getElementById('sidebar');
+            var toggle = document.querySelector('.mobile-menu-toggle');
+
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(event.target) && !toggle.contains(event.target)) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            }
+        });
+
+        // Active menu item
+        $(document).ready(function () {
+            var currentPath = window.location.pathname.toLowerCase();
+            $('.menu-item').each(function () {
+                var href = $(this).attr('href').toLowerCase();
+                if (currentPath.indexOf(href) !== -1 && href !== '/') {
+                    $(this).addClass('active');
+                }
+            });
+        });
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

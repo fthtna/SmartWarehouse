@@ -1,0 +1,303 @@
+﻿@model IEnumerable<SmartWarehouse.Models.Satis>
+
+@{
+    ViewBag.Title = "Satış Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .content-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 25px 30px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .content-header h2 {
+            color: #fff;
+            margin: 0;
+            font-weight: 600;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+    .btn-add-new {
+        background: #fff;
+        color: #667eea;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .btn-add-new:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            color: #667eea;
+            text-decoration: none;
+        }
+
+    .table-container {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        overflow: hidden;
+    }
+
+    .modern-table {
+        margin: 0;
+        width: 100%;
+    }
+
+        .modern-table thead {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            border-bottom: 2px solid #dee2e6;
+        }
+
+            .modern-table thead th {
+                color: #495057;
+                font-weight: 600;
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                padding: 16px 12px;
+                border: none;
+                vertical-align: middle;
+            }
+
+        .modern-table tbody td {
+            padding: 14px 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f3f5;
+            font-size: 14px;
+            color: #495057;
+        }
+
+        .modern-table tbody tr {
+            transition: all 0.2s ease;
+        }
+
+            .modern-table tbody tr:hover {
+                background-color: #f8f9fa;
+                transform: scale(1.001);
+            }
+
+            .modern-table tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+    .id-badge {
+        display: inline-block;
+        background: #e9ecef;
+        color: #6c757d;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .product-name {
+        font-weight: 600;
+        color: #2d3561;
+        font-size: 15px;
+    }
+
+    .customer-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .quantity-badge {
+        display: inline-block;
+        background: #e7f3ff;
+        color: #0056b3;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .price-text {
+        font-weight: 700;
+        color: #28a745;
+        font-size: 15px;
+    }
+
+    .date-text {
+        color: #6c757d;
+        font-size: 13px;
+    }
+
+    .table-footer {
+        background: #f8f9fa;
+        padding: 15px 20px;
+        border-radius: 0 0 8px 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .table-info {
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+        .table-info strong {
+            color: #495057;
+            font-weight: 600;
+        }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .empty-state-icon {
+        font-size: 64px;
+        color: #dee2e6;
+        margin-bottom: 20px;
+    }
+
+    .empty-state-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 10px;
+    }
+
+    .empty-state-text {
+        color: #6c757d;
+        margin-bottom: 20px;
+    }
+
+    @@media (max-width: 768px) {
+        .content-header {
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .modern-table {
+            font-size: 12px;
+        }
+
+            .modern-table thead th,
+            .modern-table tbody td {
+                padding: 10px 8px;
+            }
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="content-header">
+            <h2>
+                <i class="fas fa-shopping-cart"></i>
+                Satış Yönetimi
+            </h2>
+            <a href="@Url.Action("YeniSatis")" class="btn-add-new">
+                <i class="fas fa-plus"></i> Yeni Satış Yap
+            </a>
+        </div>
+
+        <div class="table-container">
+            @if (Model != null && Model.Any())
+            {
+                <table class="modern-table">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 100px;">Satış No</th>
+                            <th>Ürün Adı</th>
+                            <th>Müşteri</th>
+                            <th class="text-center" style="width: 100px;">Adet</th>
+                            <th class="text-right" style="width: 130px;">Toplam Tutar</th>
+                            <th class="text-center" style="width: 150px;">Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    <span class="id-badge">#@item.SatisId</span>
+                                </td>
+
+                                <td>
+                                    <span class="product-name">@item.Urun.UrunAdi</span>
+                                </td>
+
+                                <td>
+                                    <span class="customer-badge">
+                                        <i class="fas fa-user"></i>
+                                        @item.Musteri.MusteriAdi @item.Musteri.MusteriSoyadi
+                                    </span>
+                                </td>
+
+                                <td class="text-center">
+                                    <span class="quantity-badge">
+                                        <i class="fas fa-box"></i>
+                                        @item.Adet
+                                    </span>
+                                </td>
+
+                                <td class="text-right">
+                                    <span class="price-text">@item.Tutar.ToString("N2") ₺</span>
+                                </td>
+
+                                <td class="text-center">
+                                    <span class="date-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                        @item.Tarih.ToString("dd.MM.yyyy HH:mm")
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="table-footer">
+                    <div class="table-info">
+                        Toplam <strong>@Model.Count()</strong> satış kaydı
+                    </div>
+                    <div class="table-info">
+                        Toplam Ciro: <strong>@Model.Sum(x => x.Tutar).ToString("N2") ₺</strong>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3 class="empty-state-title">Henüz Satış Yok</h3>
+                    <p class="empty-state-text">İlk satışı yapmak için butona tıklayın</p>
+                    <a href="@Url.Action("YeniSatis")" class="btn-add-new">
+                        <i class="fas fa-plus"></i> İlk Satışı Yap
+                    </a>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>

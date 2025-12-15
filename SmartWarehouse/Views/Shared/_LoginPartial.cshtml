@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNet.Identity
+@using SmartWarehouse.Models
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            @{
+                // Giriş yapan kullanıcının bilgilerini çekiyoruz
+                var db = new ApplicationDbContext();
+                var currentUserId = User.Identity.GetUserId();
+                var user = db.Users.Find(currentUserId);
+
+                // Eğer Ad doluysa Ad+Soyad, boşsa User.Identity.Name (Mail) göster
+                var gorunenIsim = (user != null && !string.IsNullOrEmpty(user.Ad))
+                                  ? user.Ad + " " + user.Soyad
+                                  : User.Identity.GetUserName();
+            }
+
+            <li>
+                @Html.ActionLink("Merhaba " + gorunenIsim + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Oturumu kapat</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Kaydol", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Oturum aç", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
