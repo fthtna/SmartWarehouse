@@ -10,7 +10,7 @@
     }
 
     .profile-container {
-        max-width: 900px;
+        max-width: 700px;
         margin: 0 auto;
     }
 
@@ -91,15 +91,10 @@
         font-size: 20px;
     }
 
-    .settings-grid {
-        display: grid;
-        gap: 20px;
-    }
-
     .setting-card {
         background: #fff;
         border-radius: 12px;
-        padding: 25px;
+        padding: 30px;
         box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         transition: all 0.3s ease;
         border: 2px solid #e9ecef;
@@ -108,46 +103,50 @@
         .setting-card:hover {
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             border-color: #667eea;
-            transform: translateY(-2px);
         }
 
     .setting-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #f1f3f5;
     }
 
     .setting-title {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 15px;
     }
 
     .setting-icon {
-        width: 45px;
-        height: 45px;
+        width: 50px;
+        height: 50px;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 10px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: #fff;
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .setting-title h4 {
         margin: 0;
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 600;
         color: #2d3561;
     }
 
     .setting-status {
-        padding: 6px 14px;
-        border-radius: 16px;
-        font-size: 12px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 13px;
         font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
     }
 
     .status-active {
@@ -162,21 +161,47 @@
 
     .setting-content {
         color: #6c757d;
-        font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 15px;
+        font-size: 15px;
+        line-height: 1.8;
+        margin-bottom: 25px;
     }
+
+        .setting-content p {
+            margin: 0;
+        }
+
+    .security-info {
+        background: #e7f3ff;
+        border-left: 4px solid #2196F3;
+        padding: 15px 18px;
+        border-radius: 8px;
+        margin-bottom: 25px;
+    }
+
+        .security-info p {
+            margin: 0;
+            color: #0c5460;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .security-info i {
+            color: #2196F3;
+            font-size: 18px;
+        }
 
     .setting-actions {
         display: flex;
-        gap: 10px;
+        gap: 12px;
         flex-wrap: wrap;
     }
 
     .setting-btn {
-        padding: 10px 20px;
-        border-radius: 6px;
-        font-size: 14px;
+        padding: 12px 28px;
+        border-radius: 8px;
+        font-size: 15px;
         font-weight: 600;
         border: none;
         cursor: pointer;
@@ -184,7 +209,7 @@
         text-decoration: none;
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 8px;
     }
 
     .btn-primary {
@@ -194,7 +219,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
             text-decoration: none;
             color: #fff;
         }
@@ -211,37 +236,6 @@
             text-decoration: none;
         }
 
-    .info-box {
-        background: #fff3cd;
-        border-left: 4px solid #ffc107;
-        padding: 16px 20px;
-        border-radius: 8px;
-        margin-top: 20px;
-    }
-
-        .info-box h5 {
-            color: #856404;
-            font-size: 14px;
-            font-weight: 600;
-            margin: 0 0 8px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .info-box p {
-            color: #856404;
-            font-size: 13px;
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        .info-box a {
-            color: #856404;
-            font-weight: 600;
-            text-decoration: underline;
-        }
-
     @@media (max-width: 768px) {
         .page-wrapper {
             padding: 20px;
@@ -255,11 +249,12 @@
         .setting-header {
             flex-direction: column;
             align-items: flex-start;
-            gap: 10px;
+            gap: 12px;
         }
 
         .setting-actions {
             flex-direction: column;
+            width: 100%;
         }
 
         .setting-btn {
@@ -275,11 +270,11 @@
         <!-- Profile Header -->
         <div class="profile-header">
             <div class="profile-avatar">
-                <i class="fas fa-user"></i>
+                <i class="fas fa-user-shield"></i>
             </div>
             <div class="profile-info">
-                <h2>Hesap Yönetimi</h2>
-                <p>Hesap ayarlarınızı ve güvenlik seçeneklerinizi yönetin</p>
+                <h2>Hesap Güvenliği</h2>
+                <p>Şifrenizi yönetin ve hesabınızı güvende tutun</p>
             </div>
         </div>
 
@@ -292,109 +287,64 @@
             </div>
         }
 
-        <!-- Settings Grid -->
-        <div class="settings-grid">
-
-            <!-- Password Setting -->
-            <div class="setting-card">
-                <div class="setting-header">
-                    <div class="setting-title">
-                        <div class="setting-icon">
-                            <i class="fas fa-key"></i>
-                        </div>
-                        <h4>Şifre Yönetimi</h4>
+        <!-- Password Setting Card -->
+        <div class="setting-card">
+            <div class="setting-header">
+                <div class="setting-title">
+                    <div class="setting-icon">
+                        <i class="fas fa-key"></i>
                     </div>
-                    @if (Model.HasPassword)
-                    {
-                        <span class="setting-status status-active">
-                            <i class="fas fa-check"></i> Ayarlanmış
-                        </span>
-                    }
-                    else
-                    {
-                        <span class="setting-status status-inactive">
-                            <i class="fas fa-times"></i> Ayarlanmamış
-                        </span>
-                    }
+                    <h4>Şifre Yönetimi</h4>
                 </div>
-                <div class="setting-content">
-                    @if (Model.HasPassword)
-                    {
-                        <p>Hesap güvenliğiniz için düzenli olarak şifrenizi değiştirmenizi öneririz.</p>
-                    }
-                    else
-                    {
-                        <p>Hesabınız için henüz bir şifre belirlenmemiş. Güvenlik için hemen bir şifre oluşturun.</p>
-                    }
-                </div>
-                <div class="setting-actions">
-                    @if (Model.HasPassword)
-                    {
-                        <a href="@Url.Action("ChangePassword")" class="setting-btn btn-primary">
-                            <i class="fas fa-edit"></i> Şifreyi Değiştir
-                        </a>
-                    }
-                    else
-                    {
-                        <a href="@Url.Action("SetPassword")" class="setting-btn btn-primary">
-                            <i class="fas fa-plus"></i> Şifre Oluştur
-                        </a>
-                    }
-                </div>
-            </div>
-
-            <!-- External Logins -->
-            <div class="setting-card">
-                <div class="setting-header">
-                    <div class="setting-title">
-                        <div class="setting-icon">
-                            <i class="fas fa-link"></i>
-                        </div>
-                        <h4>Dış Oturum Açmalar</h4>
-                    </div>
+                @if (Model.HasPassword)
+                {
                     <span class="setting-status status-active">
-                        @Model.Logins.Count Bağlantı
+                        <i class="fas fa-check-circle"></i> Ayarlanmış
                     </span>
-                </div>
-                <div class="setting-content">
-                    <p>Hesabınıza bağlı harici oturum açma hizmetlerini yönetin (Google, Facebook vb.).</p>
-                </div>
-                <div class="setting-actions">
-                    <a href="@Url.Action("ManageLogins")" class="setting-btn btn-secondary">
-                        <i class="fas fa-cog"></i> Yönet
-                    </a>
-                </div>
+                }
+                else
+                {
+                    <span class="setting-status status-inactive">
+                        <i class="fas fa-exclamation-circle"></i> Ayarlanmamış
+                    </span>
+                }
             </div>
 
-            <!-- Two-Factor Authentication -->
-            <div class="setting-card">
-                <div class="setting-header">
-                    <div class="setting-title">
-                        <div class="setting-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h4>İki Faktörlü Kimlik Doğrulama</h4>
-                    </div>
-                    <span class="setting-status status-inactive">
-                        <i class="fas fa-times"></i> Yapılandırılmamış
-                    </span>
-                </div>
-                <div class="setting-content">
-                    <p>Hesap güvenliğinizi artırmak için iki faktörlü kimlik doğrulama ekleyin.</p>
-                </div>
-                <div class="info-box">
-                    <h5>
-                        <i class="fas fa-info-circle"></i>
-                        Bilgilendirme
-                    </h5>
+            <div class="setting-content">
+                @if (Model.HasPassword)
+                {
+                    <p>Hesabınızın güvenliği için düzenli olarak şifrenizi değiştirmeniz önerilir. Güçlü bir şifre kullanmayı unutmayın.</p>
+                }
+                else
+                {
+                    <p>Hesabınız için henüz bir şifre belirlenmemiş. Güvenliğiniz için hemen bir şifre oluşturun.</p>
+                }
+            </div>
+
+            @if (Model.HasPassword)
+            {
+                <div class="security-info">
                     <p>
-                        Yapılandırılmış iki öğeli kimlik doğrulama sağlayıcısı yok.
-                        Bu uygulamayı iki öğeli kimlik doğrulamayı destekleyecek şekilde ayarlama konusunda
-                        <a href="https://go.microsoft.com/fwlink/?LinkId=403804" target="_blank">bu makaleye</a> bakın.
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Son şifre değişikliğinizden bu yana hesabınız güvenli bir şekilde korunuyor.</span>
                     </p>
                 </div>
-            </div>
+            }
 
+            <div class="setting-actions">
+                @if (Model.HasPassword)
+                {
+                    <a href="@Url.Action("ChangePassword")" class="setting-btn btn-primary">
+                        <i class="fas fa-edit"></i> Şifreyi Değiştir
+                    </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("SetPassword")" class="setting-btn btn-primary">
+                        <i class="fas fa-plus-circle"></i> Şifre Oluştur
+                    </a>
+                }
+            </div>
         </div>
 
     </div>
